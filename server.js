@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const sqlite = require("sql.js");
 
-const filebuffer = fs.readFileSync("db/usda-nnd.sqlite3");
+const filebuffer = fs.readFileSync("db/data.sqlite");
 
 const db = new sqlite.Database(filebuffer);
 
@@ -16,13 +16,10 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const COLUMNS = [
-  "carbohydrate_g",
-  "protein_g",
-  "fa_sat_g",
-  "fa_mono_g",
-  "fa_poly_g",
-  "kcal",
-  "description"
+  "Word",
+  "Meaning",
+  "Mneomonic",
+  "Usage"
 ];
 app.get("/api/food", (req, res) => {
   const param = req.query.q;
@@ -33,16 +30,17 @@ app.get("/api/food", (req, res) => {
     });
     return;
   }
-
+// console.log("Printing Q Params",param)
   // WARNING: Not for production use! The following statement
   // is not protected against SQL injections.
   const r = db.exec(
     `
-    select ${COLUMNS.join(", ")} from entries
-    where description like '%${param}%'
+    select ${COLUMNS.join(", ")} from WordBook1_Autosaved
+    where Word like '%${param}%'
     limit 100
   `
   );
+  // console.log("Printing Query Result",r[0].values)
 
   if (r[0]) {
     res.json(
@@ -56,7 +54,9 @@ app.get("/api/food", (req, res) => {
               parseFloat(entry[idx], 10)).toFixed(2);
           } else {
             e[c] = entry[idx];
+            // console.log(e[c])
           }
+          // console.log(e)
         });
         return e;
       })

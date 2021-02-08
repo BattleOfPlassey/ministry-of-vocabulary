@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require("express");
 const fs = require("fs");
 const sqlite = require("sql.js");
+const dotenv = require('dotenv');
 
 const filebuffer = fs.readFileSync("db/data.sqlite");
 
@@ -9,9 +11,10 @@ const db = new sqlite.Database(filebuffer);
 const app = express();
 
 app.set("port", process.env.PORT || 3001);
-
+// console.log(process.env.PORT);
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
+  
   app.use(express.static("client/build"));
 }
 

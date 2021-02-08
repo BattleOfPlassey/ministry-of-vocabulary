@@ -11,8 +11,8 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // this.ele.focus();
-    this.setState({ selectedFoods: JSON.parse(localStorage.getItem('myValueInLocalStorage')) });
+    if (localStorage.getItem('myValueInLocalStorage')) this.setState({ selectedFoods: JSON.parse(localStorage.getItem('myValueInLocalStorage')) });
+    
   }
   removeFoodItem = itemIndex => {
     const filteredFoods = this.state.selectedFoods.filter(

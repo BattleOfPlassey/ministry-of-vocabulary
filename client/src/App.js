@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SelectedFoods from "./SelectedFoods";
 import FoodSearch from "./FoodSearch";
 
-import logo from "./../images/LOGO.png"; 
+import logo from "./../images/LOGO1.png"; 
 
 // console.log(logo);
 class App extends Component {
@@ -48,9 +48,9 @@ class App extends Component {
           />
            <footer className="footercustom">
               <div>
-              Ministry of Vocabulary is dedicated to all the Tharoorosaurus fanatics to help increase vocabulary.
+              Ministry of Vocabulary is a guide to complex English words from Tharoorosaurus.
               </div>
-               
+               <br></br>
                <div>
               A Project by <a target="blank" href="https://palashshrivastava.tech">Palash Shrivastava </a>
               </div>

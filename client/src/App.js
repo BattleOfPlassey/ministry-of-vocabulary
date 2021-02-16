@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SelectedFoods from "./SelectedFoods";
 import FoodSearch from "./FoodSearch";
 
-import logo from "./../images/LOGO1.png"; 
+import logo from "./../images/LOGO2.png"; 
 
 // console.log(logo);
 class App extends Component {

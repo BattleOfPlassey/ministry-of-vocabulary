@@ -68,9 +68,11 @@ class FoodSearch extends React.Component {
                     <input
                       className="prompt"
                       type="text"
+                      style={{width: "100%"}}
                       placeholder="Search word..."
                       value={this.state.searchValue}
                       onChange={this.handleSearchChange}
+                      size="80px"
                     />
                     <i className="search icon" />
                   </div>

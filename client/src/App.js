@@ -6,18 +6,7 @@ import FoodSearch from "./FoodSearch";
 // ReactGA.pageview(window.location.pathname + window.location.search);
 
 import logo from "./../images/LOGO2.png"; 
-const injectGA = () => {
-  if (typeof window === 'undefined') {
-    return;
-  }
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    window.dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
 
-  gtag('config', 'G-6K6TD38WSJ');
-};
 // console.log(logo);
 class App extends Component {
   state = {
@@ -73,12 +62,7 @@ class App extends Component {
               </div>
                 </footer>
         </div>
-         {/* Global site tag (gtag.js) - Google Analytics */}
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-6K6TD38WSJ"
-    />
-    <script>{injectGA()}</script>
+        
       </div>
     );
   }

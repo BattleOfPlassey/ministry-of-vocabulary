@@ -46,7 +46,7 @@ app.get("/api/food", (req, res) => {
   const r = db.exec(
     `
     select ${COLUMNS.join(", ")} from WordBook1_Autosaved
-    where Word like '%${param}%'
+    where Word like '${param}%'
     limit 100
   `
   );

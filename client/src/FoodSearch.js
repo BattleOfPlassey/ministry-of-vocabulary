@@ -7,10 +7,12 @@ class FoodSearch extends React.Component {
   state = {
     foods: [],
     showRemoveIcon: false,
-    searchValue: ""
+    searchValue: "",
+    loading : false
   };
 
   handleSearchChange = e => {
+    this.setState({loading:true});
     const value = e.target.value;
 
     this.setState({
@@ -31,6 +33,7 @@ class FoodSearch extends React.Component {
         this.setState({
           foods: foods.slice(0, MATCHING_ITEM_LIMIT)
         });
+        this.setState({loading:false});
       });
     }
   };
@@ -69,12 +72,12 @@ class FoodSearch extends React.Component {
                       className="prompt"
                       type="text"
                       style={{width: "100%"}}
-                      placeholder="Search word..."
+                      placeholder="Search for a Word"
                       value={this.state.searchValue}
                       onChange={this.handleSearchChange}
                       size="80px"
                     />
-                    <i className="search icon" />
+                    <i className="search icon" /> 
                   </div>
                   <i
                     className="remove icon"
@@ -86,16 +89,18 @@ class FoodSearch extends React.Component {
             </tr>
             <tr>
               <th>Word</th>
-              <th className="eight wide">Meaning</th>
-              <th className="eight wide">Mnemonic</th>
-              <th className="eight wide">Usage</th>
+              <th className="">Meaning</th>
+              <th className="">Mnemonic</th>
+              <th className="">Usage</th>
               {/* <th>Carbs (g)</th> */}
             </tr>
           </thead>
           <tbody>
+            
             {foodRows}
           </tbody>
         </table>
+        {this.state.loading && <div className="ui active centered inline loader"></div>}
       </div>
     );
   }

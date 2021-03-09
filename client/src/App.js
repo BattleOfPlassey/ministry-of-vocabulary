@@ -43,25 +43,40 @@ class App extends Component {
 
     return (
       <div className="App">
-        
+       <div className="ui secondary  menu">
+  
+  <div className="right menu">
+    
+    {/* <a className="item">
+    Home
+  </a> */}
+  
+    <a className="ui item" href="https://palashshrivastava.tech" target="blank">
+      Contact
+    </a>
+  </div>
+</div>  
         <div className="ui text container">
-        <img className="image" src={logo} alt="MOV logo" />
+        <img className="image" src={logo} alt="MOV logo" /></div>
         {/* <h1>Ministry of Vocabulary</h1> */}
-        <FoodSearch onFoodClick={this.addFood} />
-          <SelectedFoods
+        <div className="rowTable">
+  <div className="columnTable">
+        <FoodSearch onFoodClick={this.addFood} /></div>
+        <div className="columnTable"><SelectedFoods
             foods={selectedFoods}
             onFoodClick={this.removeFoodItem}
-          />
-           <footer className="footercustom">
+          /></div></div>
+           {/* <footer className="footercustom">
               <div>
-              Ministry of Vocabulary is a guide to complex English words from Tharoorosaurus.
+              Ministry of Vocabulary is a guide to complex English words from Tharoorosaurus. <i className="india flag"></i>
               </div>
                <br></br>
                <div>
               A Project by <a target="blank" href="https://palashshrivastava.tech">Palash Shrivastava </a>
               </div>
-                </footer>
-        </div>
+                </footer> */}
+                
+        
         
       </div>
     );

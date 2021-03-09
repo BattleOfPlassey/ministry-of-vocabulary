@@ -18,14 +18,14 @@ export default function SelectedFoods(props) {
       <thead>
         <tr>
           <th colSpan="4">
-            <h3>Selected Word</h3>
+            {/* <h3>Bookmarked Word</h3><span>(Click word to clear)</span> */}<a className="ui green ribbon label">Bookmarked Words</a>
           </th>
         </tr>
         <tr>
           <th>Word</th>
-          <th className="eight wide">Meaning</th>
-          <th className="eight wide">Mnemonic</th>
-          <th className="eight wide">Usage</th>
+          <th className="">Meaning</th>
+          <th className="">Mnemonic</th>
+          <th className="">Usage</th>
    
         </tr>
       </thead>

@@ -480,6 +480,7 @@
 .ui.table tbody tr td.selectable:hover {
   background: rgba(0, 0, 0, 0.05) !important;
   color: rgba(0, 0, 0, 0.95) !important;
+  cursor: pointer;
 }
 .ui.selectable.inverted.table tbody tr:hover,
 .ui.inverted.table tbody tr td.selectable:hover {

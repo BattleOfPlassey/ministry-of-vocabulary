@@ -2,7 +2,7 @@
 
 A React based app which acts as handy repository for people who are looking forward to increase their vocabulary. It utilizes API calls on each keystroke to back-end server which is powered by Node Server, It uses SQLite3 database to store words, Also utilizes browser local storage for saving selected words for future reference.
 
-![](./Screenshot.jpg)
+![](./Screenshot.JPG)
 
 
 ## Running locally

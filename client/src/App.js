@@ -47,9 +47,9 @@ class App extends Component {
   
   <div className="right menu">
     
-    {/* <a className="item">
-    Home
-  </a> */}
+  <a className="ui item" href="https://github.com/lameguest21/ministry-of-vocabulary" target="blank">
+      Contribute
+    </a>
   
     <a className="ui item" href="https://palashshrivastava.tech" target="blank">
       Contact

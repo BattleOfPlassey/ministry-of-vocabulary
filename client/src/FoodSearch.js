@@ -62,7 +62,7 @@ class FoodSearch extends React.Component {
 
     return (
       <div id="food-search">
-        <table className="ui selectable structured compact unstackable table celled padded striped orange">
+        <table className="ui selectable unstackable table celled large orange">
           <thead>
             <tr>
               <th colSpan="4">

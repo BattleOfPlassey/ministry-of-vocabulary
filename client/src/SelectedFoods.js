@@ -14,7 +14,7 @@ export default function SelectedFoods(props) {
   ));
 
   return (
-    <table className="ui selectable structured compact unstackable table celled padded striped green">
+    <table className="ui selectable unstackable table celled large green">
       <thead>
         <tr>
           <th colSpan="4">

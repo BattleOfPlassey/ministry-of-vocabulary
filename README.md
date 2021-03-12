@@ -19,6 +19,11 @@ cd ..
 npm start
 ```
 
+## Future Implementations
+1. User Authentication.
+2. Ability to update Mnemonics and Usage of words by users.
+3. Incorporating more words, meaning and mnemonics.
+
 ## Overview
 
 `create-react-app` configures a Webpack development server to run on `localhost:3000`. This development server will bundle all static assets located under `client/src/`. All requests to `localhost:3000` will serve `client/index.html` which will include Webpack's `bundle.js`.

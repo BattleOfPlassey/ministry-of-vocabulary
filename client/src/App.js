@@ -41,7 +41,7 @@ class App extends Component {
     // console.log(food.Word);console.log(this.state.selectedFoods);
     var index = this.state.selectedFoods.findIndex((x) => x.Word === food.Word);
     if (index === -1) {
-      console.log("This item does not exists");
+      // console.log("This item does not exists");
       const newFoods = this.state.selectedFoods.concat(food);
       this.setState({ selectedFoods: newFoods }, () => {
         localStorage.setItem(

@@ -6,7 +6,7 @@ import FoodSearch from "./FoodSearch";
 // ReactGA.initialize('G-6K6TD38WSJ');
 // ReactGA.pageview(window.location.pathname + window.location.search);
 
-import logo from "./../images/LOGO2.png";
+import logo from "./../images/Logo4.png";
 
 // console.log(logo);
 class App extends Component {

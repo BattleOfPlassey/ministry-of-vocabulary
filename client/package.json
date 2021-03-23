@@ -5,8 +5,7 @@
   "proxy": "http://localhost:3001/",
   "devDependencies": {
     "enzyme": "2.4.1",
-    "react-addons-test-utils": "15.4.0",
-    
+    "react-addons-test-utils": "15.4.0"    
   },
   "dependencies": {
     "babel-plugin-transform-class-properties": "6.22.0",

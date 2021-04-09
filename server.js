@@ -3,12 +3,40 @@ const express = require("express");
 const fs = require("fs");
 const sqlite = require("sql.js");
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const path = require('path');
+// require('dotenv').config();
+
+// const articles = require('./routes/articlesRoute.js');
+
+const config = require('./config.js');
+
+
+const MONGODB_URI = process.env.mongodburi;
+
+
+mongoose.connect(MONGODB_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true
+});
+mongoose.connection.on('connected', () => {
+    console.log('Connected to MongoDB');
+});
+mongoose.connection.on('error', (error) => {
+    console.log(error);
+});
+
 
 const filebuffer = fs.readFileSync("db/data.sqlite");
 
 const db = new sqlite.Database(filebuffer);
+const users = require('./routes/usersRoute.js');
 
 const app = express();
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 app.set("port", process.env.PORT || 3001);
 // console.log(process.env.PORT);
@@ -80,8 +108,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/api/articles', articles);
-// app.use('/api/users', users);
+
+app.use('/api/users', users);
 
 app.listen(app.get("port"), () => {
   console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console

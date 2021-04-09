@@ -5,14 +5,22 @@
   "proxy": "http://localhost:3001/",
   "devDependencies": {
     "enzyme": "2.4.1",
-    "react-addons-test-utils": "15.4.0"    
+    "react-addons-test-utils": "15.4.0"
   },
   "dependencies": {
     "babel-plugin-transform-class-properties": "6.22.0",
     "react": "15.4.0",
     "react-dom": "15.4.0",
     "react-github-btn": "^1.2.0",
-    "react-scripts": "0.8.5"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "0.8.5",
+    "react-spinners": "^0.10.6",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "axios": "^0.18.0",
+    "react-redux": "^5.0.7"  
+   
+              
   },
   "scripts": {
     "start": "react-scripts start",

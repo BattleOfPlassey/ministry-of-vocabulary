@@ -5,7 +5,9 @@ import FoodSearch from "./FoodSearch";
 // import ReactGA from 'react-ga';
 // ReactGA.initialize('G-6K6TD38WSJ');
 // ReactGA.pageview(window.location.pathname + window.location.search);
-
+import { NavLink, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { userLogoutRequest } from './store/actions/usersActions';
 import logo from "./../images/Logo4.png";
 
 // console.log(logo);
@@ -54,7 +56,14 @@ class App extends Component {
 
   render() {
     const { selectedFoods } = this.state;
-
+    const userLinks = (
+      <NavLink className="ui item" to='/' onClick={this.props.userLogoutRequest}>Logout</NavLink>
+  );
+  const guestLinks = (
+    
+    <NavLink className="ui item" to="/login"><i className="user large icon"></i></NavLink>
+    // <Link className="ui item" to='/signup'>Signup</Link>
+  );
 
     return (
       <div className="App">
@@ -67,17 +76,14 @@ class App extends Component {
             >
               <i className="github large icon"></i>
             </a>
-
-          
+            <div>{this.props.isAuthenticated ? userLinks : guestLinks}</div>
           </div>
         </div>
-
-        
 
         <div className="ui text container">
           <img className="image" src={logo} alt="MOV logo" />
         </div>
-        {/* <h1>Ministry of Vocabulary</h1> */}
+
         <div className="rowTable">
           <div className="columnTable">
             <FoodSearch onFoodClick={this.addFood} />
@@ -89,18 +95,24 @@ class App extends Component {
             />
           </div>
         </div>
-        {/* <footer className="footercustom">
-              <div>
-              Ministry of Vocabulary is a guide to complex English words from Tharoorosaurus. <i className="india flag"></i>
-              </div>
-               <br></br>
-               <div>
-              A Project by <a target="blank" href="https://palashshrivastava.tech">Palash Shrivastava </a>
-              </div>
-                </footer> */}
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+      isAuthenticated: state.users.isAuthenticated,
+      authenticatedUsername: state.users.authenticatedUsername
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      userLogoutRequest: () => dispatch(userLogoutRequest())
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+// export default App;

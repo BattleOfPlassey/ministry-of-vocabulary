@@ -31,7 +31,7 @@ const COLUMNS = [
   "Mneomonic",
   "Usage"
 ];
-app.get("/api/food", (req, res) => {
+app.get("/api/word", (req, res) => {
   const param = req.query.q;
 
   if (!param) {
@@ -56,17 +56,9 @@ app.get("/api/food", (req, res) => {
     res.json(
       r[0].values.map(entry => {
         const e = {};
+        
         COLUMNS.forEach((c, idx) => {
-          // combine fat columns
-          if (c.match(/^fa_/)) {
-            e.fat_g = e.fat_g || 0.0;
-            e.fat_g = (parseFloat(e.fat_g, 10) +
-              parseFloat(entry[idx], 10)).toFixed(2);
-          } else {
-            e[c] = entry[idx];
-            // console.log(e[c])
-          }
-          // console.log(e)
+          e[c] = entry[idx];
         });
         return e;
       })
@@ -75,6 +67,21 @@ app.get("/api/food", (req, res) => {
     res.json([]);
   }
 });
+
+
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  if (req.method === 'OPTIONS') {
+      res.header("Access-Control-Allow-Methods", "PUT, POST, DELETE, GET");
+      return res.status(200).json({});
+  }
+  next();
+});
+
+// app.use('/api/articles', articles);
+// app.use('/api/users', users);
 
 app.listen(app.get("port"), () => {
   console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console

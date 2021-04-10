@@ -3,3 +3,4 @@ node_modules
 npm-debug.log
 heroku_instructions.txt
 WordBook1_(Autosaved).csv
+.env

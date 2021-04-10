@@ -7,17 +7,15 @@ const config = require('../config.js');
 
 let router = express.Router();
 
-const checkForErrors = ({ title, author, body }) => {
+const checkForErrors = ({ Word, Meaning }) => {
     let errors = {};
     let isValid = false;
-    if (title === '') {
-        errors = { ...errors, title: 'This field is required' }
+    if (Word === '') {
+        errors = { ...errors, Word: 'This field is required' }
     }
-    if (author === '') {
-        errors = { ...errors, author: 'This field is required' }
-    }
-    if (body === '') {
-        errors = { ...errors, body: 'This field is required' }
+    
+    if (Meaning === '') {
+        errors = { ...errors, Meaning: 'This field is required' }
     }
 
     if (Object.keys(errors).length > 0) {
@@ -29,6 +27,9 @@ const checkForErrors = ({ title, author, body }) => {
 
 const isAuthenticated = (req, res, next) => {
     const authorizationHeader = req.headers['authorization'];
+    if(!authorizationHeader){
+        res.status(403).json({ error: 'Not Authorised' });
+    }
     const authorizationToken = authorizationHeader.split(' ')[1];
     if (authorizationToken) {
         jwt.verify(authorizationToken, config.jwtSecret, (err, decoded) => {
@@ -50,34 +51,29 @@ router.get('/', (req, res) => {
     })
 });
 
-// router.get('/myarticles', isAuthenticated, (req, res) => {
-//     Article.find({authorId: req.authorId}, (err, articles) => {
-//         if (err) throw err;
-//         res.json({ articles });
-//     })
-// });
-
-// router.get('/:id', (req, res) => {
-//     Article.findById(req.params.id, (err, article) => {
-//         if (err) throw err;
-//         res.json({ article });
-//     })
-// });
+router.get('/myarticles', isAuthenticated, (req, res) => {
+    Article.find({authorId: req.authorId}, (err, articles) => {
+        if (err) throw err;
+        res.json({ articles });
+    })
+});
 
 router.post('/add', isAuthenticated, (req, res) => {
-    const title = req.body.title || '';
-    const author = req.body.author || '';
-    const body = req.body.body || '';
+    const Word = req.body.Word || '';
+    const Meaning = req.body.Meaning || '';
+    const Mneomonic = req.body.Mneomonic || '';
+    const Usage = req.body.Usage || '';
     const authorId = req.authorId;
 
-    const { isValid, errors } = checkForErrors({ title, author, body });
+    const { isValid, errors } = checkForErrors({ Word, Meaning });
 
     if (isValid) {
         const newArticle = new Article({
-            title: title,
-            author: author,
-            body: body,
-            authorId: new ObjectId(authorId)
+            Word : Word ,
+            Meaning : Meaning,
+           Mneomonic : Mneomonic ,
+           Usage : Usage,
+           authorId: new ObjectId(authorId)
         });
 
         newArticle.save((err) => {
@@ -92,19 +88,21 @@ router.post('/add', isAuthenticated, (req, res) => {
 });
 
 router.post('/edit/:id', isAuthenticated, (req, res) => {
-    const title = req.body.title || '';
-    const author = req.body.author || '';
-    const body = req.body.body || '';
+    const Word = req.body.Word || '';
+    const Meaning = req.body.Meaning || '';
+    const Mneomonic = req.body.Mneomonic || '';
+    const Usage = req.body.Usage || '';
     const authorId = req.authorId;
 
-    const { isValid, errors } = checkForErrors({ title, author, body });
+    const { isValid, errors } = checkForErrors({ Word, Meaning });
 
     if (isValid) {
         const updatedArticle = {
-            title: req.body.title,
-            author: req.body.author,
-            body: req.body.body,
-            authorId: new ObjectId(authorId)
+            Word : Word ,
+            Meaning : Meaning,
+           Mneomonic : Mneomonic ,
+           Usage : Usage,
+           authorId: new ObjectId(authorId)
         };
 
         Article.findByIdAndUpdate(req.params.id, updatedArticle, err => {
@@ -122,4 +120,45 @@ router.delete('/delete/:id', isAuthenticated, (req, res) => {
     });
 });
 
+
+router.get('/word',isAuthenticated, (req, res) => {
+    const param = req.query.q;
+
+  if (!param) {
+    res.json({
+      error: "Missing required parameter `q`"
+    });
+    return;
+  }
+    // console.log(param)
+    Article.find({Word: {$regex : "^" + param}}, (err, articles) => {
+        if (err) throw err;
+        res.json({ articles });
+    })
+});
+
+
+
+
+router.get('/:id', (req, res) => {
+    
+    // const ObjectId = require("mongoose").Types.ObjectId;
+    
+      if (ObjectId.isValid(req.params.id)) {
+        if (String(new ObjectId(req.params.id)) === req.params.id) {
+            Article.findById(req.params.id, (err, article) => {
+                if (err) throw err;
+                res.json({ article });
+            })
+        } else {
+            res.status(401).json({ error: 'Provided _id is not valid object id' });
+        }
+      } else {
+        res.status(401).json({ error: 'Provided _id is not valid' });
+      }
+    
+
+
+    
+});
 module.exports = router;

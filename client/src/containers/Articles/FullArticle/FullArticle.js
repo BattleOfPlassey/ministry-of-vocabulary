@@ -36,9 +36,11 @@ class FullArticle extends Component {
             <div className="container">
                 <br />
                 <div className="jumbotron FullArticle">
-                    <h3 className="text-center">{this.props.article.title}</h3>
-                    <h5 className="text-right">- By {this.props.article.author}</h5>
-                    <p>{this.props.article.body}</p>
+                    <h4 className="text-center">Word: {this.props.article.Word}</h4>
+                    <h5 className="text-center">Meaning: {this.props.article.Meaning}</h5>
+                    <h5 className="text-center">Mneomonic: {this.props.article.Mneomonic}</h5>
+                    <h5 className="text-center">Usage: {this.props.article.Usage}</h5>
+                    {/* <p>{this.props.article.Mneomonic}</p><p>{this.props.article.Usage}</p> */}
                     {this.props.isAuthenticated && this.props.authenticatedUsername === this.props.article.author
                     && <button
                         className="btn btn-danger"

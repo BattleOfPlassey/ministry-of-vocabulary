@@ -4,10 +4,10 @@ import App from './App';
 // import Home from './containers/Home/Home';
 import Signup from './containers/Users/Signup/Signup';
 import Login from './containers/Users/Login/Login';
-// import FullArticle from './containers/Articles/FullArticle/FullArticle';
-// import AddArticle from './containers/Articles/AddArticle/AddArticle';
-// import EditArticle from './containers/Articles/EditArticle/EditArticle';
-// import NavigationBar from './containers/NavigationBar/NavigationBar';
+import FullArticle from './containers/Articles/FullArticle/FullArticle';
+import AddArticle from './containers/Articles/AddArticle/AddArticle';
+import EditArticle from './containers/Articles/EditArticle/EditArticle';
+import NavigationBar from './containers/NavigationBar/NavigationBar';
 
 class Appv2 extends Component {
     render() {
@@ -15,9 +15,9 @@ class Appv2 extends Component {
             <div className="container-fluid">
                 {/* <NavigationBar /> */}
                 <Switch>
-                    {/* <Route exact path="/article/add" component={AddArticle} />
+                    <Route exact path="/article/add" component={AddArticle} />
                     <Route path="/article/edit/:id" component={EditArticle} />
-                    <Route path="/articles/:id" component={FullArticle} /> */}
+                    <Route path="/articles/:id" component={FullArticle} />
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />
                     <Route path="/" component={App} />

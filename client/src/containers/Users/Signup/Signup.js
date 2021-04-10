@@ -145,14 +145,14 @@ class Signup extends Component {
         return (
             <div className="container">
                 <br />
-                <h3 className="text-center">Join Our Community!</h3>
+                <h3 className="text-center">Join Our Community <i className="users icon"></i></h3>
                 <div className="jumbotron">
                     <form onSubmit={this.handleSignup}>
                         { inputFields }
-                        <button className="btn btn-primary">Sign Up</button>
+                        <button className="btn btn-primary"><i className="lock icon"></i>Sign Up</button>
                     </form>
                 </div>
-                Already registered? <Link className="ui item" to='/login'>Login now</Link>
+                Already registered? <Link className="ui item" to='/login'>Login now <i className="sign in icon"></i></Link>
             </div>
         );
     }

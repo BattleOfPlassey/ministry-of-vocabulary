@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 // require('dotenv').config();
 
-// const articles = require('./routes/articlesRoute.js');
+const articles = require('./routes/articlesRoute.js');
 
 const config = require('./config.js');
 
@@ -110,6 +110,7 @@ app.use((req, res, next) => {
 
 
 app.use('/api/users', users);
+app.use('/api/articles', articles);
 
 app.listen(app.get("port"), () => {
   console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console

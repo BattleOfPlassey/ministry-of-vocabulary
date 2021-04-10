@@ -57,11 +57,11 @@ class App extends Component {
   render() {
     const { selectedFoods } = this.state;
     const userLinks = (
-      <NavLink className="ui item" to='/' onClick={this.props.userLogoutRequest}>Logout</NavLink>
+      <NavLink className="ui item" to='/' onClick={this.props.userLogoutRequest}><i className="sign out large icon"></i>Logout</NavLink>
   );
   const guestLinks = (
     
-    <NavLink className="ui item" to="/login"><i className="user large icon"></i></NavLink>
+    <NavLink className="ui item" to="/login"><i className="sign in alternate alternate large icon"></i>Login</NavLink>
     // <Link className="ui item" to='/signup'>Signup</Link>
   );
 
@@ -74,7 +74,7 @@ class App extends Component {
               href="https://github.com/lameguest21/ministry-of-vocabulary"
               target="blank"
             >
-              <i className="github large icon"></i>
+              <i className="github large icon"></i>Contribute
             </a>
             <div>{this.props.isAuthenticated ? userLinks : guestLinks}</div>
           </div>

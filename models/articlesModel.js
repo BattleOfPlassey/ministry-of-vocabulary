@@ -1,20 +1,25 @@
 const mongoose = require('mongoose');
-// const ObjectId = mongoose.Schema.Types.ObjectId;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const ArticleSchema = mongoose.Schema({
-    word: {
+    Word: {
         type: String,
         required: true
     },
-    meaning: {
+    Meaning: {
         type: String,
         required: true
     },
-    mneomonic: {
+    Mneomonic: {
         type: String
     },
-    usage: {
+    Usage: {
         type: String
+    },
+    authorId: {
+        type: ObjectId,
+        required: true,
+        ref: 'User'
     },
     addedOn: {
         type: Date,

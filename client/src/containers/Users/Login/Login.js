@@ -6,8 +6,8 @@ import InputField from '../../../components/InputField/InputField';
 import { NavLink, Link } from 'react-router-dom';
 
 const FIELDS = [
-    {name: 'email', type: 'text', label: 'Email'},
-    {name: 'password', type: 'password', label: 'Password'}
+    {name: 'email', type: 'text', label: 'Email', placeholder:'Enter your email'},
+    {name: 'password', type: 'password', label: 'Password', placeholder:'Enter your password'}
 ];
 
 class Login extends Component {
@@ -79,20 +79,21 @@ class Login extends Component {
             <InputField key={field.name}
                         type={field.type} name={field.name} label={field.label}
                         errors={this.state.errors}
-                        onChange={this.handleInputChange} />
+                        onChange={this.handleInputChange}
+                        placeholder={field.placeholder} />
         )
         return (
             <div className="container">
                 <br />
-                <h3 className="text-center">Login</h3>
+                <h3 className="text-center"><i className="user icon"></i> Login</h3>
                 <div className="jumbotron">
                     { this.state.errors.invalidCredentials && <p className="text-danger">{this.state.errors.invalidCredentials}</p> }
                     <form onSubmit={this.handleLogin}>
                         { inputFields }
-                        <button className="btn btn-primary">Login</button>
+                        <button className="btn btn-primary"><i className="sign in icon"></i>Login</button>
                     </form>
                 </div>
-                Not a registered user? <Link className="ui item" to='/signup'>Register now</Link>
+                Not a registered user? <Link className="ui item" to='/signup'>Register now <i className="edit icon"></i></Link>
             </div>
         );
     }

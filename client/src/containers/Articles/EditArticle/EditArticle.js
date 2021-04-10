@@ -6,8 +6,9 @@ import ErrorMsg from '../../../components/ErrorMsg/ErrorMsg';
 import InputField from '../../../components/InputField/InputField';
 
 const FIELDS = [
-    {name: 'title', type: 'text', label: 'Title'},
-    {name: 'author', type: 'text', label: 'Author', disabled: 'disabled'}
+    {name: 'Word', type: 'text', label: 'Word', disabled: 'disabled'},
+    {name: 'Meaning', type: 'text', label: 'Meaning'},
+    {name: 'Usage', type: 'text', label: 'Usage'    }
 ];
 
 class EditArticle extends Component {
@@ -39,13 +40,15 @@ class EditArticle extends Component {
 
     handleValidation = (field, value) => {
         let error = {};
-        if (value === '') {
-            error[field] = 'This field is required';
-        } else {
-            error[field] = '';
+        
+           if (field === 'Meaning' && value === '') {
+                error[field] = 'Please enter meaning';
+            } else {
+                error[field] = '';
+            }return error;
         }
-        return error;
-    }
+        
+       
 
     handleInputChange = (e) => {
         const field = e.target.name;
@@ -109,12 +112,12 @@ class EditArticle extends Component {
                     <form onSubmit={this.handleEditArticleSubmit}>
                         {inputFields}
                         <div className="form-group">
-                            <label>Body</label>
+                            <label>Mneomonic</label>
                             <textarea
-                                name="body" style={{height: '200px'}}
+                                name="Mneomonic" style={{height: '200px'}}
                                 className="form-control"
                                 onChange={this.handleInputChange}
-                                defaultValue={this.state.article.body} />
+                                defaultValue={this.state.article.Mneomonic} />
                             {this.state.errors.body !== '' && <ErrorMsg msg={this.state.errors.body} />}
                         </div>
                         <button className="btn btn-success">Save</button>

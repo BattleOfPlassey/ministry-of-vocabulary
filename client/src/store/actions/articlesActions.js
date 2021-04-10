@@ -12,9 +12,9 @@ const options = (data) => {
     };
 };
 
-export const getAllArticles = () => {
+export const getAllArticles = (page,limit) => {
     return dispatch => {
-        fetch('/api/articles')
+        fetch('/api/articles/?page='+page+'&limit='+limit)
         .then(res => res.json())
         .then(res => {
             localStorage.setItem('BasicMERNStackAppAllArticles', JSON.stringify(res.articles));
@@ -61,6 +61,12 @@ export const saveArticle = (articleId, articleData) => {
     return dispatch => {
         return fetch('/api/articles/edit/' + articleId, options(articleData))
         .then(res => res.json())
+    }
+}
+
+export const checkArticleUniqueness = ({ field, value }) => {
+    return dispatch => {
+        return fetch('/api/articles/validate', options({ field, value }))
     }
 }
 

@@ -4,6 +4,8 @@ const initialState = {
     articles: [],
     article: {},
     myArticles: {},
+    limit: 20,  
+    skip: 0,
 };
 
 const reducer = (state = initialState, action) => {

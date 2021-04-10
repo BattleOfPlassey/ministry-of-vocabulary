@@ -5,7 +5,7 @@ import WrappedLink from '../WrappedLink/WrappedLink';
 const article = (props) => {
     return (
         <li className="Article">
-            <strong>{props.title}</strong>
+            <strong>{props.title}</strong> : <span>{props.meaning}</span>
             <WrappedLink
                 to={'/articles/' + props.id}
                 buttonClasses={['btn', 'btn-info', 'ViewButton']}>View</WrappedLink>

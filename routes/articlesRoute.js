@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const ObjectId = require('mongoose').Types.ObjectId;
+const { celebrate, Joi } = require("celebrate");
 
 const Article = require('../models/articlesModel.js');
 const config = require('../config.js');
@@ -18,11 +19,40 @@ const checkForErrors = ({ Word, Meaning }) => {
         errors = { ...errors, Meaning: 'This field is required' }
     }
 
+    const reqBody = {   Word };
+    Object.keys(reqBody).forEach(async field => {
+        
+        if (field === 'Word') {
+            const value = reqBody[field];
+            const { error, isUnique } = await checkArticleUniqueness( value);
+            if (!isUnique) {
+                errors = {...errors, ...error};
+                }
+        }
+       
+    });
+
+    
     if (Object.keys(errors).length > 0) {
         return { isValid, errors };
     }
     isValid = true;
     return { isValid, errors };
+}
+
+
+const checkArticleUniqueness = (field, value) => {
+    return { error, isUnique } = Article.findOne({[field]: value}).exec()
+        .then(user => {
+            let res = {};
+            if (Boolean(user)) {
+                res = { error: { [field]: "This " + field + " is already present in database" }, isUnique: false };
+            } else {
+                res = { error: { [field]: "" }, isUnique: true };
+            }
+            return res;
+        })
+        .catch(err => console.log(err))
 }
 
 const isAuthenticated = (req, res, next) => {
@@ -45,8 +75,18 @@ const isAuthenticated = (req, res, next) => {
     }
 }
 
-router.get('/', (req, res) => {
-    Article.find({}, (err, articles) => {
+router.get('/', celebrate({
+    query: {
+        page: Joi.number().min(1).required(),
+        limit: Joi.number().min(5),
+        search: Joi.string()
+        
+    }
+}),  (req, res) => {
+      const limit = parseInt(req.query.limit); // Make sure to parse the limit to number
+      const page = limit*parseInt(req.query.page);// Make sure to parse the skip to number
+
+    Article.find({}, null,{limit:limit,skip:page}, (err, articles) => {
         res.json({ articles });
     })
 });
@@ -58,6 +98,18 @@ router.get('/myarticles', isAuthenticated, (req, res) => {
     })
 });
 
+router.post('/validate', async (req, res) => {
+    const { field, value } = req.body;
+    const { error, isUnique } = await checkArticleUniqueness(field, value);
+
+    if (isUnique) {
+        res.json({ success: 'success' });
+    } else {
+        res.json({ error });
+    }
+});
+
+
 router.post('/add', isAuthenticated, (req, res) => {
     const Word = req.body.Word || '';
     const Meaning = req.body.Meaning || '';
@@ -66,6 +118,7 @@ router.post('/add', isAuthenticated, (req, res) => {
     const authorId = req.authorId;
 
     const { isValid, errors } = checkForErrors({ Word, Meaning });
+      
 
     if (isValid) {
         const newArticle = new Article({
@@ -131,7 +184,7 @@ router.get('/word',isAuthenticated, (req, res) => {
     return;
   }
     // console.log(param)
-    Article.find({Word: {$regex : "^" + param}}, (err, articles) => {
+    Article.find({Word: {$regex : "^" + param, $options: 'i'}}, (err, articles) => {
         if (err) throw err;
         res.json({ articles });
     })

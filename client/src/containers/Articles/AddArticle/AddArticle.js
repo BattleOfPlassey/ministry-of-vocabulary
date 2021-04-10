@@ -4,10 +4,12 @@ import { Redirect } from 'react-router-dom';
 import { submitNewArticle } from '../../../store/actions/articlesActions';
 import ErrorMsg from '../../../components/ErrorMsg/ErrorMsg';
 import InputField from '../../../components/InputField/InputField';
+import { checkArticleUniqueness } from '../../../store/actions/articlesActions'
 
 const FIELDS = [
-    {name: 'title', type: 'text', label: 'Title'},
-    {name: 'author', type: 'text', label: 'Author', disabled: 'disabled'}
+    {name: 'Word', type: 'text', label: 'Word'},
+    {name: 'Meaning', type: 'text', label: 'Meaning'},
+    {name: 'Usage', type: 'text', label: 'Usage'    }
 ];
 
 class AddArticle extends Component {
@@ -31,7 +33,9 @@ class AddArticle extends Component {
 
     handleValidation = (field, value) => {
         let error = {};
-        if (value === '') {
+        if (field === 'Word' && value === '') {
+            error[field] = 'This field is required';
+        } else if (field === 'Meaning' && value === '') {
             error[field] = 'This field is required';
         } else {
             error[field] = '';
@@ -39,11 +43,36 @@ class AddArticle extends Component {
         return error;
     }
 
-    handleInputChange = (e) => {
+    ArticleUniqueness = async ({ field, value }) => {
+        const uniquenessError = await this.props.checkArticleUniqueness({ field, value })
+            .then(res => res.json())
+            .then(res => {
+                let result = {};
+                if (res.error) {
+                    result = res.error;
+                } else {
+                    result[field] = '';
+                }
+                return result;
+            });
+        return uniquenessError;
+    }
+
+    handleInputChange = async (e) => {
         const field = e.target.name;
         const value = e.target.value;
 
-        const errors = { ...this.state.errors, ...this.handleValidation(field, value) }
+        let errors = { ...this.state.errors, ...this.handleValidation(field, value) }
+        const commonValidationError = await this.handleValidation(field, value);
+        
+        let uniquenessError = {};
+        if (( field === 'Word') && value !== '') {
+            uniquenessError = await this.ArticleUniqueness({ field, value });
+            errors = { ...errors, [field]: commonValidationError[field] || uniquenessError[field] };
+        } else {
+            errors = { ...errors, ...commonValidationError };
+        }
+
 
         this.setState((prevState) => {
             return {
@@ -68,7 +97,7 @@ class AddArticle extends Component {
         if ( !formValuesValid ) {
             return;
         } else {
-            this.props.submitNewArticle({...this.state.article, author: this.props.authenticatedUsername})
+            this.props.submitNewArticle({...this.state.article, author: this.props.authenticatedEmail})
             .then(res => {
                 if (res.errors) {
                     this.setState(prevState => {
@@ -97,21 +126,27 @@ class AddArticle extends Component {
                     <form onSubmit={this.handleNewArticleSubmit}>
                         <InputField key={FIELDS[0].name}
                             type={FIELDS[0].type} name={FIELDS[0].name} label={FIELDS[0].label}
-                            defaultValue={this.state.article.title}
+                            
                             errors={this.state.errors}
                             onChange={this.handleInputChange} />
+                            
                         <InputField key={FIELDS[1].name}
                             type={FIELDS[1].type} name={FIELDS[1].name} label={FIELDS[1].label}
-                            defaultValue={this.props.authenticatedUsername} disabled={FIELDS[1].disabled}
+                            disabled={FIELDS[1].disabled}
+                            errors={this.state.errors}
+                            onChange={this.handleInputChange} />
+                            <InputField key={FIELDS[2].name}
+                            type={FIELDS[2].type} name={FIELDS[2].name} label={FIELDS[2].label}
+                            
                             errors={this.state.errors}
                             onChange={this.handleInputChange} />
                         <div className="form-group">
-                            <label>Body</label>
+                            <label>Mneomonic</label>
                             <textarea
-                                name="body" style={{height: '200px'}}
-                                className="form-control" placeholder="Your article's contents goes here... Good luck!"
+                                name="Mneomonic" style={{height: '200px'}}
+                                className="form-control" placeholder="Enter Mneomonic"
                                 onChange={this.handleInputChange}
-                                defaultValue={this.state.article.body} />
+                                defaultValue={this.state.article.Mneomonic} />
                             {this.state.errors.body !== '' && <ErrorMsg msg={this.state.errors.body} />}
                         </div>
                         <button className="btn btn-success">Submit</button>
@@ -131,7 +166,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        submitNewArticle: (articleData) => dispatch(submitNewArticle(articleData))
+        submitNewArticle: (articleData) => dispatch(submitNewArticle(articleData)),
+        checkArticleUniqueness: (userInputDetails) => dispatch(checkArticleUniqueness(userInputDetails)),
     };
 };
 

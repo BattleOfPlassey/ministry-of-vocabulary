@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import App from './App';
-// import Home from './containers/Home/Home';
+import Home from './containers/Home/Home';
 import Signup from './containers/Users/Signup/Signup';
 import Login from './containers/Users/Login/Login';
 import FullArticle from './containers/Articles/FullArticle/FullArticle';
@@ -20,8 +20,9 @@ class Appv2 extends Component {
                     <Route path="/articles/:id" component={FullArticle} />
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />
+                    <Route path="/home" component={Home} />
                     <Route path="/" component={App} />
-                    {/* <Route path="/home" component={Home} /> */}
+                    
                 </Switch>
             </div>
         );

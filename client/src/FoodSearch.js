@@ -22,7 +22,8 @@ class FoodSearch extends React.Component {
     if (value === "") {
       this.setState({
         foods: [],
-        showRemoveIcon: false
+        showRemoveIcon: false,
+        loading:false
       });
     } else {
       this.setState({

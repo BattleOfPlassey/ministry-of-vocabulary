@@ -46,15 +46,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
- if (process.env.NODE_ENV === 'production') {
-// app.use(express.static(path.join(__dirname, 'build')));
-  // app.get('/*', (req, res) => {
-  // res.sendFile(path.join(__dirname, 'build', 'index.html')); 
-//});
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '/client/build/index.html'));
-// });
-}
+
 
 const COLUMNS = [
   "Word",
@@ -114,6 +106,16 @@ app.use((req, res, next) => {
 
 app.use('/api/users', users);
 app.use('/api/articles', articles);
+
+if (process.env.NODE_ENV === 'production') {
+  // app.use(express.static(path.join(__dirname, 'build')));
+  //   app.get('/*', (req, res) => {
+  //   res.sendFile(path.join(__dirname, 'client/build', 'index.html')); 
+  // });
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));
+  });
+  }
 
 app.listen(app.get("port"), () => {
   console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console

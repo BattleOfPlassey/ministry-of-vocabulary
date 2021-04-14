@@ -1,9 +1,17 @@
 # Ministry Of Vocabulary
 
-A React based app which acts as handy repository for people who are looking forward to increase their vocabulary. It utilizes API calls on each keystroke to back-end server which is powered by Node Server, It uses SQLite3 database to store words, Also utilizes browser local storage for saving selected words for future reference.
+A React based app which acts as handy repository for people who are looking forward to increase their vocabulary. It utilizes API calls on each keystroke to back-end server which is powered by Node Server, It uses SQLite3 and Mongo database to store words, utilizes browser local storage for saving selected words for future reference.
 
 ![](./Screenshot.JPG)
 
+### Features
+
+1. Node + Express.
+2. React with Semantic UI.
+3. Redux to manage state.
+3. User Authentication with JWT. 
+4. Ability to update, add, delete, edit words meaning, mneomonics, usage in the real time.
+5. Secure API calls.
 
 ## Running locally
 
@@ -20,9 +28,10 @@ npm start
 ```
 
 ## Future Implementations
-1. User Authentication.
-2. Ability to update Mnemonics and Usage of words by users.
-3. Incorporating more words, meaning and mnemonics.
+1. Pagination in Dashboard component
+2. Role/Module Management
+3. More Secure API
+4. Adding more words, meaning and mneomonics on a daily basis.
 
 ## Overview
 

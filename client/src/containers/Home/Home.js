@@ -8,6 +8,7 @@ import { userLogoutRequest } from '../../store/actions/usersActions';
 import './Home.css';
 // import Client from "../../ClientMongo";
 import { NavLink, Link } from 'react-router-dom';
+// import CustomPagination from "components/Pagination.js";
 
 const MATCHING_ITEM_LIMIT = 25;
 class Home extends Component {
@@ -15,9 +16,7 @@ class Home extends Component {
         showMyArticles: false,
         page:1,
         limit:10,
-        
         showRemoveIcon: false,
-       
         loading : false
     }
 
@@ -37,13 +36,7 @@ class Home extends Component {
             showRemoveIcon: true
           });
     
-        //   Client.search(value, foods => {
-        //     this.setState({
-        //       foods: foods.slice(0, MATCHING_ITEM_LIMIT)
-        //     });
-        //     this.setState({loading:false});
-        //   });
-        this.props.searchArticles(value);
+       this.props.searchArticles(value);
 
         }
       };
@@ -84,8 +77,21 @@ class Home extends Component {
     render() {
       if (!this.props.isAuthenticated) {
         return <Redirect to="/" />;
-    }
-        const { showRemoveIcon, foods } = this.state;
+    }     
+
+    // const { currentPage, postsPerPage, contacts, loading } = this.state;
+    const { showRemoveIcon, page, limit, foods } = this.state;
+    // const indexOfLastPost = page * limit;
+    // const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    // const currentPosts = contacts.slice(indexOfFirstPost, indexOfLastPost);
+
+    // const paginate = pageNum => this.setState({ page: pageNum });
+
+    // const nextPage = () => this.setState({ page: currentPage + 1 });
+
+    // const prevPage = () => this.setState({ page: currentPage - 1 });
+
+        
     const removeIconStyle = showRemoveIcon ? {} : { visibility: "hidden" };
         let allArticles = this.props.allArticles || JSON.parse(localStorage.getItem('BasicMERNStackAppAllArticles'));
         // allArticles = allArticles.map(article => (
@@ -193,6 +199,7 @@ class Home extends Component {
                         <div className="Articles">
                             {/* { this.state.showMyArticles ? myArticles : allArticles } */}
                             {tableOfArticles}
+                            {/* <CustomPagination postsPerPage={limit} paginate={paginate} nextPage={nextPage} prevPage={prevPage} currentPage={page}/> */}
                         </div>
                     </section>
                 </div>

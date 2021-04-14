@@ -1,10 +1,7 @@
 /* eslint-disable no-undef */
 function search(query, cb) {
-  return fetch(`api/articles/word?q=${query}`, {
-    headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
-      'Content-Type': 'application/json'
-  },
+  return fetch(`api/articles/words?q=${query}`, {
+    
     accept: "application/json"
   })
     .then(checkStatus)
@@ -24,7 +21,8 @@ function checkStatus(response) {
 }
 
 function parseJSON(response) {
-  return response.json();
+  // console.log(response);
+  return response.json([]);
 }
 
 const Client = { search };

@@ -1,5 +1,6 @@
 import React from "react";
-import Client from "./Client";
+// import Client from "./Client";
+import Client from "./ClientMongo";
 
 const MATCHING_ITEM_LIMIT = 25;
 
@@ -31,8 +32,9 @@ class FoodSearch extends React.Component {
       });
 
       Client.search(value, foods => {
-        this.setState({
-          foods: foods.slice(0, MATCHING_ITEM_LIMIT)
+        console.log(foods)
+         this.setState({
+          foods: foods.articles.slice(0, MATCHING_ITEM_LIMIT)
         });
         this.setState({loading:false});
       });

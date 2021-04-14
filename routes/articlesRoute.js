@@ -174,7 +174,7 @@ router.delete('/delete/:id', isAuthenticated, (req, res) => {
 });
 
 
-router.get('/word',isAuthenticated, (req, res) => {
+router.get('/word',isAuthenticated,(req, res) => {
     const param = req.query.q;
 
   if (!param) {
@@ -184,13 +184,29 @@ router.get('/word',isAuthenticated, (req, res) => {
     return;
   }
     // console.log(param)
-    Article.find({Word: {$regex : "^" + param, $options: 'i'}}, (err, articles) => {
+    Article.find({'Word': {$regex : "^" + param, $options: 'i'}},null,{limit:25}, (err, articles) => {
         if (err) throw err;
+        // console.log(articles)
         res.json({ articles });
     })
 });
 
+router.get('/words',(req, res) => {
+    const param = req.query.q;
 
+  if (!param) {
+    res.json({
+      error: "Missing required parameter `q`"
+    });
+    return;
+  }
+    // console.log(param)
+    Article.find({'Word': {$regex : "^" + param, $options: 'i'}},null,{limit:7}, (err, articles) => {
+        if (err) throw err;
+        // console.log(articles)
+        res.json({ articles });
+    })
+});
 
 
 router.get('/:id', (req, res) => {

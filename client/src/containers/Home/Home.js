@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { getAllArticles, getMyArticles, search } from '../../store/actions/articlesActions';
 import Article from '../../components/Article/Article';
 import WrappedLink from '../../components/WrappedLink/WrappedLink';
 import { userLogoutRequest } from '../../store/actions/usersActions';
 import './Home.css';
-import Client from "../../ClientMongo";
+// import Client from "../../ClientMongo";
+import { NavLink, Link } from 'react-router-dom';
 
 const MATCHING_ITEM_LIMIT = 25;
 class Home extends Component {
@@ -80,6 +82,9 @@ class Home extends Component {
     }
 
     render() {
+      if (!this.props.isAuthenticated) {
+        return <Redirect to="/" />;
+    }
         const { showRemoveIcon, foods } = this.state;
     const removeIconStyle = showRemoveIcon ? {} : { visibility: "hidden" };
         let allArticles = this.props.allArticles || JSON.parse(localStorage.getItem('BasicMERNStackAppAllArticles'));
@@ -133,10 +138,10 @@ class Home extends Component {
                   <td>{(article.Usage) ? article.Usage : add }</td>
                   <td>
                   {this.props.isAuthenticated 
-                    && <WrappedLink
+                    ? <WrappedLink
                     to={'/articles/' + article._id}
-                    buttonClasses={['btn', 'btn-info', 'ViewButton',]}><i className="pencil icon"></i></WrappedLink>
-                        }
+                    buttonClasses={['btn', 'btn-primary', 'ViewButton',]}><i className="pencil icon"></i></WrappedLink>
+                      : <span style={{color:'red'}}>Not Authorised</span>  }
                     
                     
                     
@@ -162,27 +167,29 @@ class Home extends Component {
             ));
         }
 
-        const showArticlesLink = <WrappedLink
+        const showArticlesLink = <Link
                 to={this.state.showMyArticles ? "/" : "/article/myarticles"}
-                buttonClasses={['btn', 'btn-outline-info', 'mr-3', 'MyArticlesButton']}
+                className="Simple-Link"
                 onClick={this.toggleShowMyArticles}>
                     { this.state.showMyArticles ? 'All Articles' : 'My Articles' }
-                </WrappedLink>
+                </Link>
 
         return (
             <div className="container">
                 <br />
                 <div className="Header">
-                    <h1 style={{display: 'inline-block'}}>All Articles</h1>
-                    <WrappedLink to="/article/add" buttonClasses={['btn', 'btn-primary', 'mr-3', 'AddArticleButton']}>Add Article</WrappedLink>
-                    {this.props.isAuthenticated && showArticlesLink}
-                    {!this.props.isAuthenticated && <WrappedLink to="/login" buttonClasses={['btn', 'btn-primary', 'mr-3', 'AddArticleButton']}>Login</WrappedLink>}
-                    {this.props.isAuthenticated && <WrappedLink to='/' onClick={this.props.userLogoutRequest} buttonClasses={['btn', 'btn-primary', 'mr-3']}><i className="sign out large icon"></i>Logout</WrappedLink>}
+                    <h1 className="heading">Dashboard</h1>
+                    {this.props.isAuthenticated && <Link to='/' className="Simple-Link" onClick={this.props.userLogoutRequest}><i className="sign out large icon"></i>Logout</Link>}
+                    {!this.props.isAuthenticated && <Link to="/login" className="Simple-Link" ><i className="sign in large icon"></i>Login</Link>}
+                    <Link to="/article/add" className="Simple-Link">Add Article</Link>
+                    {/* {this.props.isAuthenticated && showArticlesLink} */}
                     
+                    
+                    <Link to="/" className="Simple-Link">Home</Link>
                 </div>
                 <br />
                 <div>
-                    <section className="jumbotron">
+                    <section>
                         <div className="Articles">
                             {/* { this.state.showMyArticles ? myArticles : allArticles } */}
                             {tableOfArticles}
@@ -199,6 +206,7 @@ const mapStateToProps = state => {
         allArticles: state.articles.articles,
         myArticles: state.articles.myArticles,
         isAuthenticated: state.users.isAuthenticated
+        
     };
 };
 
@@ -212,108 +220,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
-
-
-/* 
-import Client from "./Client";
-
-
-
-  handleSearchChange = e => {
-    this.setState({loading:true});
-    const value = e.target.value;
-
-    this.setState({
-      searchValue: value
-    });
-
-    if (value === "") {
-      this.setState({
-        foods: [],
-        showRemoveIcon: false,
-        loading:false
-      });
-    } else {
-      this.setState({
-        showRemoveIcon: true
-      });
-
-      Client.search(value, foods => {
-        this.setState({
-          foods: foods.slice(0, MATCHING_ITEM_LIMIT)
-        });
-        this.setState({loading:false});
-      });
-    }
-  };
-
-  handleSearchCancel = () => {
-    this.setState({
-      foods: [],
-      showRemoveIcon: false,
-      searchValue: ""
-    });
-  };
-
-  render() {
-    const { showRemoveIcon, foods } = this.state;
-    const removeIconStyle = showRemoveIcon ? {} : { visibility: "hidden" };
-
-    const foodRows = foods.map((food, idx) => (
-      <tr key={idx} onClick={() => this.props.onFoodClick(food)}>
-        <td>{food.Word}</td>
-        <td>{food.Meaning}</td>
-        <td>{food.Mneomonic}</td>
-        <td>{food.Usage}</td>
-        
-        </tr>
-        ));
-    
-        return (
-          <div id="food-search">
-            <table className="ui selectable unstackable table celled large orange">
-              <thead>
-                <tr>
-                  <th colSpan="4">
-                    <div className="ui fluid search">
-                      <div className="ui icon input">
-                        <input
-                          className="prompt"
-                          type="text"
-                          style={{width: "100%"}}
-                          placeholder="Search for a Word"
-                          value={this.state.searchValue}
-                          onChange={this.handleSearchChange}
-                          size="80px"
-                        />
-                        <i className="search icon" /> 
-                      </div>
-                      <i
-                        className="remove icon"
-                        onClick={this.handleSearchCancel}
-                        style={removeIconStyle}
-                      />
-                    </div>
-                  </th>
-                </tr>
-                <tr>
-                  <th>Word</th>
-                  <th className="">Meaning</th>
-                  <th className="">Mnemonic</th>
-                  <th className="">Usage</th>
-                  
-                </tr>
-              </thead>
-              <tbody>
-                
-                {foodRows}
-              </tbody>
-            </table>
-            {this.state.loading && <div className="ui active centered inline loader"></div>}
-          </div>
-        );
-      }
-    }
-    
-    export default FoodSearch;
-     */

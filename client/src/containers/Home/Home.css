@@ -5,9 +5,38 @@
 .Header {
     box-shadow: 3px 3px #ccc;
     border-radius: 5px;
-    padding: 12px 0px 0px 12px;
+    padding: 6px 0px 0px 6px;
+}
+
+.heading{
+    display: inline-block;
+    /* font-size: small; */
+}
+
+@media only screen and (max-width: 768px) {
+    .heading{
+        
+        font-size: medium;
+    }
 }
 
 .ShowArticlesButton {
     box-shadow: 3px 3px #547393;
+}
+
+.Simple-Link{
+    float: right;
+    padding: 6px 12px;
+}
+
+.Simple-Link {
+    /* height: 100%;
+    width: 100%; */
+    /* color: white; */
+    text-decoration: none;
+}
+
+.Simple-Link:hover {
+    color: rgb(235, 5, 5);
+    text-decoration: none;
 }

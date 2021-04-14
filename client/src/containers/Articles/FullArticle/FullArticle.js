@@ -26,7 +26,7 @@ class FullArticle extends Component {
         this.props.deleteArticle(this.props.match.params.id)
         .then(res => {
             if (res.success) {
-                this.props.history.push('/');
+                this.props.history.push('/home');
             }
         })
     }

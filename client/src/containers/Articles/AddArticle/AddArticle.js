@@ -108,7 +108,7 @@ class AddArticle extends Component {
                         };
                     });
                 } else {
-                    this.props.history.push('/');
+                    this.props.history.push('/home');
                 }
             })
         }

@@ -16,6 +16,15 @@ const ArticleSchema = mongoose.Schema({
     Usage: {
         type: String
     },
+    Type : {
+        type: String
+    },
+    Barrons : {
+        type: String
+    },
+    top1k : {
+        type: String
+    },
     authorId: {
         type: ObjectId,
         required: true,

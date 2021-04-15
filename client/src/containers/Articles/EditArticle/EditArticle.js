@@ -36,6 +36,7 @@ class EditArticle extends Component {
                 errors: {...errors}
             };
         });
+        document.title = "Edit Article | Ministry Of Vocabulary";
     }
 
     handleValidation = (field, value) => {
@@ -97,6 +98,7 @@ class EditArticle extends Component {
     }
 
     render() {
+        
         const inputFields = FIELDS.map(field =>
             <InputField key={field.name}
                         type={field.type} name={field.name} label={field.label}

@@ -1,4 +1,4 @@
-.FullArticle h3 {
+/* .FullArticle h3 {
     text-transform: capitalize;
     text-decoration: underline;
 }
@@ -8,4 +8,19 @@
     background-color: white;
     border-radius: 4px;
     box-shadow: inset 2px 2px #ccc;
+} */
+
+.Wordheading{
+    display: inline-block;
+    margin-right: 8px;
+    font-size: xxx-large;
+    font-size: -webkit-xxx-large;
+}
+
+.TypeSpan{
+    font-size: large;
+}
+
+.FullP{
+    font-size: medium;
 }

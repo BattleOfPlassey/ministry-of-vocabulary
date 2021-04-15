@@ -53,6 +53,7 @@ class Home extends Component {
         if (this.props.location.pathname === '/article/myarticles' && !this.state.showMyArticles) {
             this.toggleShowMyArticles();
         }
+        document.title = 'Dashboard | Ministry Of Vocabulary'
     }
 
     componentDidMount() {
@@ -187,11 +188,11 @@ class Home extends Component {
                     <h1 className="heading">Dashboard</h1>
                     {this.props.isAuthenticated && <Link to='/' className="Simple-Link" onClick={this.props.userLogoutRequest}><i className="sign out large icon"></i>Logout</Link>}
                     {!this.props.isAuthenticated && <Link to="/login" className="Simple-Link" ><i className="sign in large icon"></i>Login</Link>}
-                    <Link to="/article/add" className="Simple-Link">Add Article</Link>
+                    <Link to="/article/add" className="Simple-Link"><i className="plus  large icon"></i>Add Article</Link>
                     {/* {this.props.isAuthenticated && showArticlesLink} */}
                     
                     
-                    <Link to="/" className="Simple-Link">Home</Link>
+                    <Link to="/" className="Simple-Link"><i className="home large icon"></i>Home</Link>
                 </div>
                 <br />
                 <div>

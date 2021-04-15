@@ -42,11 +42,11 @@ const checkForErrors = ({ Word, Meaning }) => {
 
 
 const checkArticleUniqueness = (field, value) => {
-    return { error, isUnique } = Article.findOne({[field]: value}).exec()
+    return { error, isUnique } = Article.findOne({[field]: {$regex : "^" + value + "$", $options: 'i'}}).exec()
         .then(user => {
             let res = {};
             if (Boolean(user)) {
-                res = { error: { [field]: "This " + field + " is already present in database" }, isUnique: false };
+                res = { error: { [field]: value + " is already present in database." }, isUnique: false };
             } else {
                 res = { error: { [field]: "" }, isUnique: true };
             }

@@ -18,12 +18,14 @@ class App extends Component {
   };
 
   componentDidMount() {
+    document.title = "Ministry Of Vocabulary | Home";
     if (localStorage.getItem("myValueInLocalStorage"))
       this.setState({
         selectedFoods: JSON.parse(
           localStorage.getItem("myValueInLocalStorage")
         ),
       });
+      
   }
 
   removeFoodItem = (itemIndex) => {
@@ -76,6 +78,7 @@ class App extends Component {
             >
               <i className="github large icon"></i>Contribute
             </a>
+            {this.props.isAuthenticated && <NavLink className="ui item" to='/home'><i className="newspaper outline large icon"></i>Dashboard</NavLink>}
             <div>{this.props.isAuthenticated ? userLinks : guestLinks}</div>
           </div>
         </div>

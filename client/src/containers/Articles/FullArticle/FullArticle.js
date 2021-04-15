@@ -7,12 +7,14 @@ import './FullArticle.css'
 class FullArticle extends Component {
     componentDidMount() {
         this.getSingleArticle();
+        
     }
 
     getSingleArticle() {
         if (this.props.match.params.id) {
             if (!this.props.article || (this.props.article._id !== + this.props.match.params.id)) {
                 this.props.getArticle(this.props.match.params.id);
+                
             }
         }
     }
@@ -31,15 +33,41 @@ class FullArticle extends Component {
         })
     }
 
+    renderSwitch(param) {
+        switch(param) {
+          case 'v':
+            return 'verb';
+            case 'n':
+            return 'noun';
+            case 'adj':
+            return 'adjective';
+            case 'adv':
+            return 'adverb';
+            case 'conj':
+            return 'conjunction';
+            case 'inter':
+            return 'interjection';
+            case 'prep':
+            return 'preposition';
+          default:
+            return '';
+        }
+      }
+
     render() {
+        document.title = this.props.article.Word + " | Ministry Of Vocabulary";
         return (
             <div className="container">
                 <br />
                 <div className="jumbotron FullArticle">
-                    <h4 className="text-center">Word: {this.props.article.Word}</h4>
-                    <h5 className="text-center">Meaning: {this.props.article.Meaning}</h5>
-                    <h5 className="text-center">Mneomonic: {this.props.article.Mneomonic}</h5>
-                    <h5 className="text-center">Usage: {this.props.article.Usage}</h5>
+                <div className="">
+                    <h1 className="Wordheading">{this.props.article.Word}</h1>
+                    <span className="TypeSpan"><i>{this.renderSwitch(this.props.article.Type)}</i></span>
+                    </div>
+                    <h3 className="">Definition of <i>{this.props.article.Word}</i> :</h3><p className="FullP">{this.props.article.Meaning}</p>
+                    <h3 className="">Mneomonic of <i>{this.props.article.Word}</i> :</h3><p className="FullP">{this.props.article.Mneomonic ? this.props.article.Mneomonic : 'Mneomonic not available' }</p>
+                    <h3 className="">Example Sentence :</h3><p className="FullP">{this.props.article.Usage ? this.props.article.Usage : 'Sentence not available'}</p>
+                    
                     {/* <p>{this.props.article.Mneomonic}</p><p>{this.props.article.Usage}</p> */}
                     {this.props.isAuthenticated && this.props.authenticatedUsername === this.props.article.author
                     && <button

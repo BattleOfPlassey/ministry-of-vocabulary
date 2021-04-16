@@ -4,9 +4,14 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const { celebrate, Joi } = require("celebrate");
 
 const Article = require('../models/articlesModel.js');
+const User = require('../models/usersModel.js');
 const config = require('../config.js');
 
 let router = express.Router();
+const ROLE = {
+    ADMIN: 'ADMIN',
+    BASIC: 'USER'
+  }
 
 const checkForErrors = ({ Word, Meaning }) => {
     let errors = {};
@@ -167,11 +172,35 @@ router.post('/edit/:id', isAuthenticated, (req, res) => {
     }
 });
 
-router.delete('/delete/:id', isAuthenticated, (req, res) => {
-    Article.remove({_id: req.params.id}, err => {
-        res.json({ success: 'success' });
-    });
+router.delete('/delete/:id', isAuthenticated, authRole(ROLE.ADMIN), (req, res) => {
+    // console.log(req);
+    Article.findByIdAndDelete( req.params.id, (error, item) => {
+        // console.log(err)
+        if (!item){
+            res.json({ Error: 'Could not find document. Something went wrong' });
+        }else{
+            res.json({ success: 'success' });
+        }
+    })
 });
+
+ function authRole(role) {
+    return async (req, res, next) => {
+
+        let isAdmin  = await User.findOne({'_id': req.authorId},{'role':1,'_id':0}).exec()
+        .then()
+        .catch(err => console.log(err))
+
+        // console.log(isAdmin)
+        
+      if (isAdmin.role !== role) {
+        res.status(401).json({ error: 'Not Authorised to delete' });
+        return res.send('Not allowed')
+      }
+  
+      next()
+    }
+  }
 
 
 router.get('/word',isAuthenticated,(req, res) => {

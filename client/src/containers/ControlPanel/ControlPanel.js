@@ -5,13 +5,13 @@ import { getAllArticles, getMyArticles, search } from '../../store/actions/artic
 import Article from '../../components/Article/Article';
 import WrappedLink from '../../components/WrappedLink/WrappedLink';
 import { userLogoutRequest } from '../../store/actions/usersActions';
-import './Home.css';
+import './ControlPanel.css';
 // import Client from "../../ClientMongo";
 import {  Link } from 'react-router-dom';
 // import CustomPagination from "components/Pagination.js";
 
 // const MATCHING_ITEM_LIMIT = 25;
-class Home extends Component {
+class ControlPanel extends Component {
     state = {
         showMyArticles: false,
         page:1,
@@ -191,13 +191,13 @@ class Home extends Component {
                 <br />
                 <div className="Header">
                     <h1 className="heading">Dashboard</h1>
-                    {this.props.isAuthenticated && <Link to='/' className="Simple-Link" onClick={this.props.userLogoutRequest}><i className="sign out large icon"></i><span className="item-label">Logout</span></Link>}
-                    {!this.props.isAuthenticated && <Link to="/login" className="Simple-Link" ><i className="sign in large icon"></i><span className="item-label">Login</span></Link>}
-                    <Link to="/article/add" className="Simple-Link"><i className="plus  large icon"></i><span className="item-label">Add Article</span></Link>
+                    {this.props.isAuthenticated && <Link to='/' className="Simple-Link" onClick={this.props.userLogoutRequest}><i className="sign out large icon"></i>Logout</Link>}
+                    {!this.props.isAuthenticated && <Link to="/login" className="Simple-Link" ><i className="sign in large icon"></i>Login</Link>}
+                    <Link to="/article/add" className="Simple-Link"><i className="plus  large icon"></i>Add Article</Link>
                     {/* {this.props.isAuthenticated && showArticlesLink} */}
                     
                     
-                    <Link to="/" className="Simple-Link"><i className="home large icon"></i><span className="item-label">Home</span></Link>
+                    <Link to="/" className="Simple-Link"><i className="home large icon"></i>Home</Link>
                 </div>
                 <br />
                 <div>
@@ -232,4 +232,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(ControlPanel);

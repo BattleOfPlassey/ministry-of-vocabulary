@@ -11,7 +11,7 @@ A Full Stack app which helps you learn new words, improve your vocabulary and ex
 6. Ability to perform CRUD operations.
 7. Secure API calls.
 
-![](./Screenshot.JPG)
+![](./Demo.gif)
 
 ## Future Implementations
 1. Pagination in Dashboard component

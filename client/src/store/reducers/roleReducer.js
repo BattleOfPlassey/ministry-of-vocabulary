@@ -2,8 +2,6 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     users: [],
-    
-    
     limit: 20,  
     skip: 0,
 };

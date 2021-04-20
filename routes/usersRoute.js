@@ -122,7 +122,8 @@ router.post('/login', (req, res) => {
                                 id: user._id,
                                 email: user.email
                             }, config.jwtSecret);
-                        res.json({ token, success: 'success' })
+                        const role = user.role;
+                        res.json({ token, role, success: 'success' })
                     } else {
                        res.json({ errors: { invalidCredentials: 'Invalid email or Password' } });
                     }

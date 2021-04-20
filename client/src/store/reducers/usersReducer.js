@@ -13,17 +13,21 @@ const validCredentials = () => {
     }
 }
 
+
 const initialState = {
     isAuthenticated: validCredentials(),
-    authenticatedEmail: validCredentials() === false ? '' : jwt.decode(localStorage.getItem('jwtToken')).email
+    authenticatedEmail: validCredentials() === false ? '' : jwt.decode(localStorage.getItem('jwtToken')).email,
+    authenticatedRole: localStorage.getItem('role') ? localStorage.getItem('role') : null
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.LOGIN_SUCCESSFUL:
+            console.log(action)
             return {
                 isAuthenticated: true,
                 authenticatedEmail: action.authenticatedEmail,
+                authenticatedRole : action.authenticatedRole
             }
         case actionTypes.LOGOUT_USER: {
             return {

@@ -1,102 +1,99 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import {  search } from '../../store/actions/articlesActions';
-import { getAllUsers } from '../../store/actions/roleActions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { search } from "../../store/actions/articlesActions";
+import { getAllUsers } from "../../store/actions/roleActions";
 // import Article from '../../components/Article/Article';
 // import WrappedLink from '../../components/WrappedLink/WrappedLink';
-import { userLogoutRequest } from '../../store/actions/usersActions';
-import './ControlPanel.css';
+import { userLogoutRequest } from "../../store/actions/usersActions";
+import "./ControlPanel.css";
 // import Client from "../../ClientMongo";
-import {  Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 // import CustomPagination from "components/Pagination.js";
 
 // const MATCHING_ITEM_LIMIT = 25;
 class ControlPanel extends Component {
-    state = {
-        
-        page:1,
-        limit:10,
+  state = {
+    dummyArticle: [],
+    page: 1,
+    limit: 10,
+    showRemoveIcon: false,
+    searchValue: "",
+    loading: false,
+  };
+
+  handleSearchChange = (e) => {
+    this.setState({ loading: true });
+    const value = e.target.value;
+
+    this.setState({
+      searchValue: value,
+    });
+
+    if (value === "") {
+      this.setState({
         showRemoveIcon: false,
-        searchValue: "",
-        loading : false
+        loading: false,
+      });
+    } else {
+      this.setState({
+        showRemoveIcon: true,
+      });
+
+      this.props.searchArticles(value);
     }
+  };
 
-    handleSearchChange = e => {
-        this.setState({loading:true});
-        const value = e.target.value;
+  handleSearchCancel = () => {
+    this.setState({
+      showRemoveIcon: false,
+      searchValue: "",
+    });
+    this.props.searchArticles("0");
+  };
 
-        this.setState({
-          searchValue: value
-        });
-            
-        if (value === "") {
-          this.setState({
-            
-            showRemoveIcon: false,
-            loading:false
-          });
-        } else {
-          this.setState({
-            showRemoveIcon: true
-          });
-    
-       this.props.searchArticles(value);
+  componentWillMount() {
+    document.title = "Control Panel | Ministry Of Vocabulary";
+  }
 
-        }
-      };
-    
-      handleSearchCancel = () => {
-        this.setState({
-          
-          showRemoveIcon: false,
-          searchValue: ""
-        });
-        this.props.searchArticles('0');
-      };
+  componentDidMount() {
+    this.props.initArticles(this.state.page, this.state.limit);
+  }
 
-    componentWillMount() {
-      
-        document.title = 'Control Panel | Ministry Of Vocabulary'
-    }
+  // handleEditArticleClick(param) {
+  //     this.props.history.replace({pathname: '/article/edit/' + param});
+  // }
+  handleDelete(article) {
+    // console.log(article);
+    fetch("/api/root/delete/" + article._id, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+        "Content-Type": "application/json",
+      },
+      method: "delete",
+    }).then(this.props.initArticles(this.state.page, this.state.limit));
+  }
 
-    componentDidMount() {
-        this.props.initArticles(this.state.page,this.state.limit);
-        
-    }
+  handleAdminChange(article) {
+    fetch("/api/root/edit/?id="+article._id+"&role="+article.role, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    }).then(this.props.initArticles(this.state.page, this.state.limit));
+  }
 
-    // handleEditArticleClick(param) {
-    //     this.props.history.replace({pathname: '/article/edit/' + param});
-    // }
-    handleDelete(article){
-      // console.log(article);
-      fetch('/api/root/delete/' + article._id, {
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
-            'Content-Type': 'application/json'
-        },
-        method: 'delete'
-    })
-
-    }
-
-    handleAdminChange(article){
-      fetch('/api/root  /edit/' + article._id, {
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
-            'Content-Type': 'application/json'
-        },
-        method: 'POST'
-    })
-
+  render() {
+    // console.log(this.props.allArticles )
+    // this.props.initArticles(this.state.page,this.state.limit);
+    if (this.props.isAuthenticated.authenticatedRole != 'ROOT') {
+      return <Redirect to="/" />;
     }
   
-
-    render() {
-      this.props.initArticles(this.state.page,this.state.limit);
-      if (!this.props.isAuthenticated) {
-        return <Redirect to="/" />;
-    }     
+    if (!this.props.isAuthenticated.isAuthenticated) {
+      return <Redirect to="/" />;
+    }
 
     // const { currentPage, postsPerPage, contacts, loading } = this.state;
     const { showRemoveIcon, page, limit, foods } = this.state;
@@ -110,118 +107,125 @@ class ControlPanel extends Component {
 
     // const prevPage = () => this.setState({ page: currentPage - 1 });
 
-        
     const removeIconStyle = showRemoveIcon ? {} : { visibility: "hidden" };
-        let allArticles = this.props.allArticles || JSON.parse(localStorage.getItem('AllUsers'));
-        // allArticles = allArticles.map(article => (
-        //     <Article
-        //         key={article._id}
-        //         id={article._id}
-        //         title={article.Word} meaning={article.Meaning} />
-        // ));
-        const add = '-'
-        let tableOfArticles = (
-          <table className="ui celled table">
-            <thead>
-            <tr>
-                  <th colSpan="5">
-                    <div className="ui fluid search">
-                      <div className="ui icon input">
-                        <input
-                          className="prompt"
-                          type="text"
-                          style={{width: "100%"}}
-                          placeholder="Search for user account"
-                          value={this.state.searchValue}
-                          onChange={this.handleSearchChange}
-                          size="80px"
-                        />
-                        <i className="search icon" /> 
-                      </div>
-                      <i
-                        className="remove icon"
-                        onClick={this.handleSearchCancel}
-                        style={removeIconStyle}
-                      />
-                    </div>
-                  </th>
-                </tr>
-              <tr>
-                <th>Email</th>
-                <th>emailVerified</th>
-                <th>role</th>
-                <th>Grant Admin Access</th>
-                
-                <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-              {allArticles.map((article) => (
-                <tr key={article._id}>
-                  <td>{article.email}</td>
-                  <td>{`${article.emailVerified}`}</td>
-                  <td>{(article.role) ? article.role : add }</td>
-                  <td className='positive selectable'><a onClick={() => this.handleAdminChange(article) }><i className="icon checkmark"></i></a> </td>
-                  <td className='error selectable'><a onClick={() => this.handleDelete(article) }>
-                    <i className="icon delete"></i>
-                                     
-                    
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )
+    let allArticles =
+      this.props.allArticles ||
+      JSON.parse(localStorage.getItem("AllUsers")) ||
+      this.state.dummyArticle;
 
-        
-
-       
-
-        return (
-            <div className="container">
-                <br />
-                <div className="Header">
-                    <h1 className="heading">Control Panel</h1>
-                    {this.props.isAuthenticated && <Link to='/' className="Simple-Link" onClick={this.props.userLogoutRequest}><i className="sign out large icon"></i>Logout</Link>}
-                    {!this.props.isAuthenticated && <Link to="/login" className="Simple-Link" ><i className="sign in large icon"></i>Login</Link>}
-                   
-                    {/* {this.props.isAuthenticated && showArticlesLink} */}
-                    
-                    
-                    <Link to="/" className="Simple-Link"><i className="home large icon"></i>Home</Link>
+    const add = "-";
+    let tableOfArticles = (
+      <table className="ui celled table">
+        <thead>
+          {/* <tr>
+            <th colSpan="5">
+              <div className="ui fluid search">
+                <div className="ui icon input">
+                  <input
+                    className="prompt"
+                    type="text"
+                    style={{ width: "100%" }}
+                    placeholder="Search for user account"
+                    value={this.state.searchValue}
+                    onChange={this.handleSearchChange}
+                    size="80px"
+                  />
+                  <i className="search icon" />
                 </div>
-                <br />
-                <div>
-                    <section>
-                        <div className="Articles">
-                            {/* { this.state.showMyArticles ? myArticles : allArticles } */}
-                            {tableOfArticles}
-                            {/* <CustomPagination postsPerPage={limit} paginate={paginate} nextPage={nextPage} prevPage={prevPage} currentPage={page}/> */}
-                        </div>
-                    </section>
-                </div>
+                <i
+                  className="remove icon"
+                  onClick={this.handleSearchCancel}
+                  style={removeIconStyle}
+                />
+              </div>
+            </th>
+          </tr> */}
+          <tr>
+            <th>Email</th>
+            <th>emailVerified</th>
+            <th>role</th>
+            <th>Switch Admin/User</th>
+
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allArticles.length>0 && allArticles.map((article) => (
+            <tr key={article._id}>
+              <td>{article.email}</td>
+              <td>{`${article.emailVerified}`}</td>
+              <td>{article.role ? article.role : add}</td>
+              <td className="positive selectable">{article.role!='ROOT' &&
+                <a onClick={() => this.handleAdminChange(article)}>
+                  <i className="icon exchange"></i>
+                </a>}
+              </td>
+              <td className="error selectable">{article.role!='ROOT' &&
+                <a onClick={() => this.handleDelete(article)}>
+                  <i className="icon delete"></i>
+                </a>}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+
+    return (
+      <div className="container">
+        <br />
+        <div className="Header">
+          <h1 className="heading">Control Panel</h1>
+          {this.props.isAuthenticated && (
+            <Link
+              to="/"
+              className="Simple-Link"
+              onClick={this.props.userLogoutRequest}
+            >
+              <i className="sign out large icon"></i>Logout
+            </Link>
+          )}
+          {!this.props.isAuthenticated && (
+            <Link to="/login" className="Simple-Link">
+              <i className="sign in large icon"></i>Login
+            </Link>
+          )}
+
+          {/* {this.props.isAuthenticated && showArticlesLink} */}
+
+          <Link to="/" className="Simple-Link">
+            <i className="home large icon"></i>Home
+          </Link>
+        </div>
+        <br />
+        <div>
+          <section>
+            <div className="Articles">
+              {/* { this.state.showMyArticles ? myArticles : allArticles } */}
+              {tableOfArticles}
+              {/* <CustomPagination postsPerPage={limit} paginate={paginate} nextPage={nextPage} prevPage={prevPage} currentPage={page}/> */}
             </div>
-        );
-    }
+          </section>
+        </div>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = state => {
-    return {
-        allArticles: state.users.articles,
-        
-        isAuthenticated: state.users.isAuthenticated
-        
-    };
+const mapStateToProps = (state) => {
+  return {
+    allArticles: state.roles.users,
+    isAuthenticated: state.users,
+    
+  };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        initArticles: (page,limit) => dispatch(getAllUsers(page,limit)),
-        
-        userLogoutRequest: () => dispatch(userLogoutRequest()),
-        searchArticles: (query)=> dispatch(search(query))
-    };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    initArticles: (page, limit) => dispatch(getAllUsers(page, limit)),
+    userLogoutRequest: () => dispatch(userLogoutRequest()),
+    searchArticles: (query) => dispatch(search(query)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ControlPanel);

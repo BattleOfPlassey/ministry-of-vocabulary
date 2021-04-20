@@ -191,6 +191,7 @@ class Home extends Component {
                 <br />
                 <div className="Header">
                     <h1 className="heading">Dashboard</h1>
+                    {this.props.isAuthRole.authenticatedRole == 'ROOT' && <Link to='/cp' className="Simple-Link"><i className="unlock alternate large icon"></i><span className="item-label">Access Manage</span></Link>}
                     {this.props.isAuthenticated && <Link to='/' className="Simple-Link" onClick={this.props.userLogoutRequest}><i className="sign out large icon"></i><span className="item-label">Logout</span></Link>}
                     {!this.props.isAuthenticated && <Link to="/login" className="Simple-Link" ><i className="sign in large icon"></i><span className="item-label">Login</span></Link>}
                     <Link to="/article/add" className="Simple-Link"><i className="plus  large icon"></i><span className="item-label">Add Article</span></Link>
@@ -218,8 +219,8 @@ const mapStateToProps = state => {
     return {
         allArticles: state.articles.articles,
         myArticles: state.articles.myArticles,
-        isAuthenticated: state.users.isAuthenticated
-        
+        isAuthenticated: state.users.isAuthenticated,
+        isAuthRole : state.users
     };
 };
 

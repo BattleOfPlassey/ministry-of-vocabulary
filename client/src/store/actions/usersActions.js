@@ -30,9 +30,11 @@ export const userLoginRequest = (userLoginDetails) => {
         .then(res => {
             if (res.success) {
                 const token = res.token;
+                const role = res.role;
                 delete res.token;
                 localStorage.setItem('jwtToken', token);
-                dispatch({ type: actionTypes.LOGIN_SUCCESSFUL, authorizationToken: token, authenticatedEmail: jwt.decode(token).email });
+                localStorage.setItem('role', role);
+                dispatch({ type: actionTypes.LOGIN_SUCCESSFUL, authorizationToken: token, authenticatedEmail: jwt.decode(token).email, authenticatedRole: role });
             }
             return res;
         })
@@ -43,6 +45,7 @@ export const userLogoutRequest = () => {
     return dispatch => {
         localStorage.removeItem('jwtToken');
         localStorage.removeItem('Articles');
+        localStorage.removeItem('role');
         dispatch({ type: actionTypes.LOGOUT_USER });
     }
 }

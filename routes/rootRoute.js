@@ -76,17 +76,18 @@ function authRole(role) {
     })
 });
 
-router.post('/edit/:id', isAuthenticated, authRole('ROOT'), (req, res) => {
-   
+router.post('/edit/', isAuthenticated, authRole('ROOT'), (req, res) => {
+  let role = req.query.role;
+  if (role == "USER") {
+    role = "ADMIN";
+  } else {
+    role = "USER";
+  }
 
-    
-
-
-        User.findByIdAndUpdate(req.params.id,{role:'ADMIN'} , err => {
-            if (err) throw err;
-            else res.json({ success: 'success' });
-        });
-    
+  User.findByIdAndUpdate(req.query.id, { role: role }, (err) => {
+    if (err) throw err;
+    else res.json({ success: "success" });
+  });
 });
 
 module.exports = router;

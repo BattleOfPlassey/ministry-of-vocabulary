@@ -10,6 +10,7 @@ const path = require('path');
 
 const articles = require('./routes/articlesRoute.js');
 const rootRoute = require('./routes/rootRoute.js');
+const mailer = require('./routes/mailer.js');
 
 const config = require('./config.js');
 
@@ -108,6 +109,7 @@ app.use((req, res, next) => {
 app.use('/api/users', users);
 app.use('/api/articles', articles);
 app.use('/api/root', rootRoute);
+app.use('/api/mail', mailer);
 
 if (process.env.NODE_ENV === 'production') {
   // app.use(express.static(path.join(__dirname, 'build')));

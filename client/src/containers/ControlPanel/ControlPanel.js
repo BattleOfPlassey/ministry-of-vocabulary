@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { getAllArticles, getMyArticles, search } from '../../store/actions/articlesActions';
-import Article from '../../components/Article/Article';
-import WrappedLink from '../../components/WrappedLink/WrappedLink';
+import {  search } from '../../store/actions/articlesActions';
+import { getAllUsers } from '../../store/actions/roleActions';
+// import Article from '../../components/Article/Article';
+// import WrappedLink from '../../components/WrappedLink/WrappedLink';
 import { userLogoutRequest } from '../../store/actions/usersActions';
 import './ControlPanel.css';
 // import Client from "../../ClientMongo";
@@ -13,7 +14,7 @@ import {  Link } from 'react-router-dom';
 // const MATCHING_ITEM_LIMIT = 25;
 class ControlPanel extends Component {
     state = {
-        showMyArticles: false,
+        
         page:1,
         limit:10,
         showRemoveIcon: false,
@@ -55,32 +56,44 @@ class ControlPanel extends Component {
       };
 
     componentWillMount() {
-        if (this.props.location.pathname === '/article/myarticles' && !this.state.showMyArticles) {
-            this.toggleShowMyArticles();
-        }
-        document.title = 'Dashboard | Ministry Of Vocabulary'
+      
+        document.title = 'Control Panel | Ministry Of Vocabulary'
     }
 
     componentDidMount() {
         this.props.initArticles(this.state.page,this.state.limit);
-        if (this.props.isAuthenticated) {
-            this.props.getMyArticles();
-        }
+        
     }
 
     // handleEditArticleClick(param) {
     //     this.props.history.replace({pathname: '/article/edit/' + param});
     // }
+    handleDelete(article){
+      // console.log(article);
+      fetch('/api/root/delete/' + article._id, {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+            'Content-Type': 'application/json'
+        },
+        method: 'delete'
+    })
 
-    toggleShowMyArticles = () => {
-        this.setState((prevState) => {
-            return {
-                showMyArticles: !prevState.showMyArticles
-            }
-        });
     }
 
+    handleAdminChange(article){
+      fetch('/api/root  /edit/' + article._id, {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+            'Content-Type': 'application/json'
+        },
+        method: 'POST'
+    })
+
+    }
+  
+
     render() {
+      this.props.initArticles(this.state.page,this.state.limit);
       if (!this.props.isAuthenticated) {
         return <Redirect to="/" />;
     }     
@@ -99,7 +112,7 @@ class ControlPanel extends Component {
 
         
     const removeIconStyle = showRemoveIcon ? {} : { visibility: "hidden" };
-        let allArticles = this.props.allArticles || JSON.parse(localStorage.getItem('BasicMERNStackAppAllArticles'));
+        let allArticles = this.props.allArticles || JSON.parse(localStorage.getItem('AllUsers'));
         // allArticles = allArticles.map(article => (
         //     <Article
         //         key={article._id}
@@ -118,7 +131,7 @@ class ControlPanel extends Component {
                           className="prompt"
                           type="text"
                           style={{width: "100%"}}
-                          placeholder="Search for a Word"
+                          placeholder="Search for user account"
                           value={this.state.searchValue}
                           onChange={this.handleSearchChange}
                           size="80px"
@@ -134,29 +147,26 @@ class ControlPanel extends Component {
                   </th>
                 </tr>
               <tr>
-                <th>Word</th>
-                <th>Meaning</th>
-                <th>Mneomonic</th>
-                <th>Usage</th>
-                <th>Action</th>
-              </tr>
+                <th>Email</th>
+                <th>emailVerified</th>
+                <th>role</th>
+                <th>Grant Admin Access</th>
+                
+                <th>Delete</th>
+                </tr>
             </thead>
             <tbody>
               {allArticles.map((article) => (
-                <tr key={article.Word}>
-                  <td>{article.Word}</td>
-                  <td>{article.Meaning}</td>
-                  <td>{(article.Mneomonic) ? article.Mneomonic : add }</td>
-                  <td>{(article.Usage) ? article.Usage : add }</td>
-                  <td>
-                  {this.props.isAuthenticated 
-                    ? <WrappedLink
-                    to={'/articles/' + article._id}
-                    buttonClasses={['btn', 'btn-primary', 'ViewButton',]}><i className="pencil icon"></i></WrappedLink>
-                      : <span style={{color:'red'}}>Not Authorised</span>  }
+                <tr key={article._id}>
+                  <td>{article.email}</td>
+                  <td>{`${article.emailVerified}`}</td>
+                  <td>{(article.role) ? article.role : add }</td>
+                  <td className='positive selectable'><a onClick={() => this.handleAdminChange(article) }><i className="icon checkmark"></i></a> </td>
+                  <td className='error selectable'><a onClick={() => this.handleDelete(article) }>
+                    <i className="icon delete"></i>
+                                     
                     
-                    
-                    
+                    </a>
                   </td>
                 </tr>
               ))}
@@ -164,36 +174,18 @@ class ControlPanel extends Component {
           </table>
         )
 
-        let myArticles = [];
-        if (this.props.isAuthenticated && this.state.showMyArticles) {
-            if (this.props.myArticles) {
-                myArticles = [...this.props.myArticles];
-            } else {
-                myArticles = [...JSON.parse(localStorage.getItem('BasicMERNStackAppMyArticles'))]
-            }
-            myArticles = myArticles.map(article => (
-                <Article
-                    key={article._id}
-                    id={article._id}
-                    title={article.title} />
-            ));
-        }
+        
 
-        const showArticlesLink = <Link
-                to={this.state.showMyArticles ? "/" : "/article/myarticles"}
-                className="Simple-Link"
-                onClick={this.toggleShowMyArticles}>
-                    { this.state.showMyArticles ? 'All Articles' : 'My Articles' }
-                </Link>
+       
 
         return (
             <div className="container">
                 <br />
                 <div className="Header">
-                    <h1 className="heading">Dashboard</h1>
+                    <h1 className="heading">Control Panel</h1>
                     {this.props.isAuthenticated && <Link to='/' className="Simple-Link" onClick={this.props.userLogoutRequest}><i className="sign out large icon"></i>Logout</Link>}
                     {!this.props.isAuthenticated && <Link to="/login" className="Simple-Link" ><i className="sign in large icon"></i>Login</Link>}
-                    <Link to="/article/add" className="Simple-Link"><i className="plus  large icon"></i>Add Article</Link>
+                   
                     {/* {this.props.isAuthenticated && showArticlesLink} */}
                     
                     
@@ -216,8 +208,8 @@ class ControlPanel extends Component {
 
 const mapStateToProps = state => {
     return {
-        allArticles: state.articles.articles,
-        myArticles: state.articles.myArticles,
+        allArticles: state.users.articles,
+        
         isAuthenticated: state.users.isAuthenticated
         
     };
@@ -225,8 +217,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        initArticles: (page,limit) => dispatch(getAllArticles(page,limit)),
-        getMyArticles: () => dispatch(getMyArticles()),
+        initArticles: (page,limit) => dispatch(getAllUsers(page,limit)),
+        
         userLogoutRequest: () => dispatch(userLogoutRequest()),
         searchArticles: (query)=> dispatch(search(query))
     };

@@ -4,3 +4,5 @@ export const GOT_SINGLE_ARTICLE = 'GOT_SINGLE_ARTICLE';
 
 export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL';
 export const LOGOUT_USER = 'LOGOUT_USER';
+
+export const GOT_ALL_USERS = 'GOT_ALL_USERS';

@@ -9,6 +9,7 @@ const path = require('path');
 // require('dotenv').config();
 
 const articles = require('./routes/articlesRoute.js');
+const rootRoute = require('./routes/rootRoute.js');
 
 const config = require('./config.js');
 
@@ -106,6 +107,7 @@ app.use((req, res, next) => {
 
 app.use('/api/users', users);
 app.use('/api/articles', articles);
+app.use('/api/root', rootRoute);
 
 if (process.env.NODE_ENV === 'production') {
   // app.use(express.static(path.join(__dirname, 'build')));

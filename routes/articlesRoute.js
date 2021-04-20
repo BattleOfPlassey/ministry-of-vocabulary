@@ -89,7 +89,7 @@ router.get('/', celebrate({
     }
 }),  (req, res) => {
       const limit = parseInt(req.query.limit); // Make sure to parse the limit to number
-      const page = limit*parseInt(req.query.page);// Make sure to parse the skip to number
+      const page = limit*(parseInt(req.query.page)-1);// Make sure to parse the skip to number
 
     Article.find({}, null,{limit:limit,skip:page}, (err, articles) => {
         res.json({ articles });

@@ -7,7 +7,7 @@ import InputField from '../../../components/InputField/InputField';
 
 const FIELDS = [
     {name: 'Word', type: 'text', label: 'Word', disabled: 'disabled'},
-    {name: 'Meaning', type: 'text', label: 'Meaning'},
+    {name: 'Meaning', type: 'text', label: 'Meaning', disabled: 'disabled'},
     {name: 'Usage', type: 'text', label: 'Usage'    }
 ];
 

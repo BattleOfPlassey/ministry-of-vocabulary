@@ -91,9 +91,17 @@ router.get('/', celebrate({
       const limit = parseInt(req.query.limit); // Make sure to parse the limit to number
       const page = limit*(parseInt(req.query.page)-1);// Make sure to parse the skip to number
 
-    Article.find({}, null,{limit:limit,skip:page}, (err, articles) => {
-        res.json({ articles });
-    })
+    // Article.find({}, null,{limit:limit,skip:page}, (err, articles) => {
+    //     res.json({ articles });
+    // })
+
+
+    //Just for Random Documents, aggregate pipline with sample size 10
+    Article.aggregate(
+        [ { $sample: { size: 10 } } ], (err, articles) => {
+                 res.json({ articles });
+             }
+     )
 });
 
 router.get('/myarticles', isAuthenticated, (req, res) => {
@@ -156,8 +164,6 @@ router.post('/edit/:id', isAuthenticated, (req, res) => {
 
     if (isValid) {
         const updatedArticle = {
-            Word : Word ,
-            Meaning : Meaning,
            Mneomonic : Mneomonic ,
            Usage : Usage,
            authorId: new ObjectId(authorId)

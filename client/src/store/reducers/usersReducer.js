@@ -23,7 +23,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.LOGIN_SUCCESSFUL:
-            console.log(action)
+            // console.log(action)
             return {
                 isAuthenticated: true,
                 authenticatedEmail: action.authenticatedEmail,

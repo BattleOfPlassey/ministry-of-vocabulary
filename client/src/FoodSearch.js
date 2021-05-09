@@ -1,6 +1,7 @@
 import React from "react";
 // import Client from "./Client";
 import Client from "./ClientMongo";
+import debounce from "./components/Debouncing/debounce"
 
 const MATCHING_ITEM_LIMIT = 25;
 
@@ -11,6 +12,14 @@ class FoodSearch extends React.Component {
     searchValue: "",
     loading : false
   };
+
+  debouncedLog = debounce(value=>{Client.search(value, foods => {
+    console.log(foods)
+     this.setState({
+      foods: foods.articles.slice(0, MATCHING_ITEM_LIMIT)
+    });
+    this.setState({loading:false});
+  })},500)
 
   handleSearchChange = e => {
     this.setState({loading:true});
@@ -30,14 +39,14 @@ class FoodSearch extends React.Component {
       this.setState({
         showRemoveIcon: true
       });
-
-      Client.search(value, foods => {
-        // console.log(foods)
-         this.setState({
-          foods: foods.articles.slice(0, MATCHING_ITEM_LIMIT)
-        });
-        this.setState({loading:false});
-      });
+      this.debouncedLog(value)
+      // Client.search(value, foods => {
+      //   // console.log(foods)
+      //    this.setState({
+      //     foods: foods.articles.slice(0, MATCHING_ITEM_LIMIT)
+      //   });
+      //   this.setState({loading:false});
+      // });
     }
   };
 

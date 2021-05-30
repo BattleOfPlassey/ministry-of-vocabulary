@@ -9,8 +9,19 @@ import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userLogoutRequest } from './store/actions/usersActions';
 import logo from "./../images/Logo4.png";
+var myHeaders = new Headers();
+myHeaders.append("Access-Control-Allow-Origin", "*");
+myHeaders.append("Access-Control-Allow-Credentials", "true");
+myHeaders.append("Access-Control-Allow-Methods", "PUT, POST, DELETE, GET");
+myHeaders.append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 
-// console.log(logo);
+
+var requestOptions = {
+  method: 'OPTIONS',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
 class App extends Component {
   state = {
     selectedFoods: [],
@@ -19,13 +30,16 @@ class App extends Component {
 
   componentDidMount() {
     document.title = "Ministry Of Vocabulary | Home";
+    // fetch("https://ministry-of-vocabulary.herokuapp.com",requestOptions);
+    fetch("http://localhost:3000",requestOptions);
+
+
     if (localStorage.getItem("myValueInLocalStorage"))
       this.setState({
         selectedFoods: JSON.parse(
           localStorage.getItem("myValueInLocalStorage")
         ),
-      });
-      
+      });       
   }
 
   removeFoodItem = (itemIndex) => {

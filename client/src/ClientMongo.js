@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
+import * as env from './config'
 function search(query, cb) {
-  return fetch(`api/articles/words?q=${query}`, {
+  return fetch(`${env.HOST}/api/articles/words?q=${query}`, {
     
     accept: "application/json"
   })

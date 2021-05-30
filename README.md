@@ -9,15 +9,13 @@ A Full Stack app which helps you learn new words, improve your vocabulary and ex
 4. User Authentication with JWT.
 5. Database consisting of more than 4000 words with meaning, mnemonics, usage and more.
 6. Ability to perform CRUD operations.
-7. Improved and Secure API calls. API hits are significatly reduced by debouncing and thus delaying unnecessary calls to backend.
+7. Improved and Secure API calls. API hits are significatly reduced by debouncing unnecessary calls to backend.
 
 ![](./Demo.gif)
 
 ## Future Implementations
-1. Pagination in Dashboard component
-2. Role/Module Management
-3. More Secure API
-4. Adding more words, meaning and mneomonics.
+1. More Secure API
+2. Adding more words, meaning and mneomonics.
 
 
 ## Running locally

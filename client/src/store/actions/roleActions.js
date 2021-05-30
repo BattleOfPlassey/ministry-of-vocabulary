@@ -1,4 +1,6 @@
 import * as actionTypes from './actionTypes';
+import * as env from '../../config';
+
 
 const options = (data) => {
     return {
@@ -14,7 +16,7 @@ const options = (data) => {
 
 export const getAllUsers = (page,limit) => {
     return dispatch => {
-        fetch('/api/root/?page='+page+'&limit='+limit, 
+        fetch(`${env.HOST}/api/root/?page=`+page+`&limit=`+limit, 
         {headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
             'Content-Type': 'application/json'
@@ -36,7 +38,7 @@ export const getAllUsers = (page,limit) => {
 
 export const deleteArticle = (articleId) => {
     return dispatch => {
-        return fetch('/api/articles/delete/' + articleId, {
+        return fetch(`${env.HOST}/api/articles/delete/` + articleId, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
                 'Content-Type': 'application/json'
@@ -49,7 +51,7 @@ export const deleteArticle = (articleId) => {
 
 export const search = (query) => {
     return dispatch => {
-        return fetch(`api/articles/word?q=${query}`, {
+        return fetch(`${env.HOST}/api/articles/word?q=${query}`, {
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
               'Content-Type': 'application/json'

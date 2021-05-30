@@ -5,6 +5,7 @@ import WrappedLink from '../../../components/WrappedLink/WrappedLink';
 import './FullArticle.css'
 import {ToastContainer,toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from "react-router-dom";
 
 class FullArticle extends Component {
   componentDidMount() {
@@ -36,9 +37,13 @@ class FullArticle extends Component {
         // console.log(response)
         if (response.success !== "success") {
           //   console.log(response);
-          toast.error("You are not authorised to delete");
-        }else this.props.history.push("/home");
-      })
+          toast.error("You are not authorised to delete. Contact Administrator!");
+        }
+          toast.info("Delete Success");
+          this.props.history.push("/home");
+      });
+      
+
     //   .then((res) => {
     //     console.log(res);
     //     if (res.success) {
@@ -84,6 +89,26 @@ class FullArticle extends Component {
           draggable
           pauseOnHover
         />
+        <div className="Header">
+          <h1 className="heading">Ministry Of Vocabulary</h1>
+       
+          {!this.props.isAuthenticated && (
+            <Link to="/login" className="Simple-Link">
+              <i className="sign in large icon"></i>
+              <span className="item-label">Login</span>
+            </Link>
+          )}
+          <Link to="/article/add" className="Simple-Link">
+            <i className="plus  large icon"></i>
+            <span className="item-label">Add Article</span>
+          </Link>
+          {/* {this.props.isAuthenticated && showArticlesLink} */}
+
+          <Link to="/home" className="Simple-Link">
+            <i className="home large icon"></i>
+            <span className="item-label">Dashboard</span>
+          </Link>
+        </div> <br></br>
         <div className="jumbotron FullArticle">
           <div className="">
             <h1 className="Wordheading">{this.props.article.Word}</h1>

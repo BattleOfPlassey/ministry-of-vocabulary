@@ -1,4 +1,6 @@
 import * as actionTypes from './actionTypes';
+import * as env from '../../config';
+
 
 const options = (data) => {
     return {
@@ -14,7 +16,7 @@ const options = (data) => {
 
 export const getAllArticles = (page,limit) => {
     return dispatch => {
-        fetch('/api/articles/?page='+page+'&limit='+limit)
+        fetch(`${env.HOST}/api/articles/?page=`+page+`&limit=`+limit)
         .then(res => res.json())
         .then(res => {
             localStorage.setItem('BasicMERNStackAppAllArticles', JSON.stringify(res.articles));
@@ -25,7 +27,7 @@ export const getAllArticles = (page,limit) => {
 
 export const getMyArticles = () => {
     return dispatch => {
-        fetch('/api/articles/myarticles', {
+        fetch(`${env.HOST}/api/articles/myarticles`, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
                 'Content-Type': 'application/json'
@@ -42,7 +44,7 @@ export const getMyArticles = () => {
 
 export const getArticle = (articleId) => {
     return dispatch => {
-        fetch('/api/articles/' + articleId)
+        fetch(`${env.HOST}/api/articles/` + articleId)
         .then(res => res.json())
         .then(res => {
             dispatch({ type: actionTypes.GOT_SINGLE_ARTICLE, article: res.article })
@@ -52,27 +54,27 @@ export const getArticle = (articleId) => {
 
 export const submitNewArticle = (articleData) => {
     return dispatch => {
-        return fetch('/api/articles/add', options(articleData))
+        return fetch(`${env.HOST}/api/articles/add`, options(articleData))
         .then(res => res.json())
     }
 };
 
 export const saveArticle = (articleId, articleData) => {
     return dispatch => {
-        return fetch('/api/articles/edit/' + articleId, options(articleData))
+        return fetch(`${env.HOST}/api/articles/edit/` + articleId, options(articleData))
         .then(res => res.json())
     }
 }
 
 export const checkArticleUniqueness = ({ field, value }) => {
     return dispatch => {
-        return fetch('/api/articles/validate', options({ field, value }))
+        return fetch(`${env.HOST}/api/articles/validate`, options({ field, value }))
     }
 }
 
 export const deleteArticle = (articleId) => {
     return dispatch => {
-        return fetch('/api/articles/delete/' + articleId, {
+        return fetch(`${env.HOST}/api/articles/delete/` + articleId, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
                 'Content-Type': 'application/json'
@@ -85,7 +87,7 @@ export const deleteArticle = (articleId) => {
 
 export const search = (query) => {
     return dispatch => {
-        return fetch(`api/articles/word?q=${query}`, {
+        return fetch(`${env.HOST}/api/articles/word?q=${query}`, {
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
               'Content-Type': 'application/json'

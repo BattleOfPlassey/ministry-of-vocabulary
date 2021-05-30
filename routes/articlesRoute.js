@@ -9,8 +9,8 @@ const config = require('../config.js');
 
 let router = express.Router();
 const ROLE = {
-    ADMIN: 'ADMIN',
-    BASIC: 'USER'
+    ADMIN: 'ayJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzFjOTY3YzM1MmM0MDAxNTE5MDJmMyIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTYyMjI5MTIyNX0.s87wzlIa_a2NXxBWDR5SiohvNFAkSPmRgMkfhkk-mQg',
+    BASIC: 'uyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwN2ZhYzVmM2M5ZTRjMDAxNWFhMzg4OSIsImVtYWlsIjoidGVzdDFAdGVzdC5jb20iLCJpYXQiOjE2MjIyOTg2NzZ9.oIM-gCDpj-tnM49WXmR68BSes-zoa65nnSivMvugE0k'
   }
 
 const checkForErrors = ({ Word, Meaning }) => {

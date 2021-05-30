@@ -4,6 +4,10 @@ import { withRouter } from 'react-router-dom';
 import { saveArticle } from '../../../store/actions/articlesActions';
 import ErrorMsg from '../../../components/ErrorMsg/ErrorMsg';
 import InputField from '../../../components/InputField/InputField';
+import {ToastContainer,toast} from 'react-toastify'
+import { Link } from "react-router-dom";
+import './EditArticle.css'
+
 
 const FIELDS = [
     {name: 'Word', type: 'text', label: 'Word', disabled: 'disabled'},
@@ -88,6 +92,7 @@ class EditArticle extends Component {
                 } else {
                     localStorage.removeItem('Edit' + this.props.match.params.id);
                     this.props.history.push('/articles/' + this.props.match.params.id);
+                    toast.info("Saved");
                 }
             })
         }
@@ -107,9 +112,24 @@ class EditArticle extends Component {
                         onChange={this.handleInputChange} />
         );
         return (
-            <div className="container">
+            <div className="container"><br></br>
+                <div className="Header">
+          <h1 className="heading">Edit Word</h1>
+       
+        
+          <Link to="/article/add" className="Simple-Link">
+            <i className="plus  large icon"></i>
+            <span className="item-label">Add Word</span>
+          </Link>
+          
+
+          <Link to="/home" className="Simple-Link">
+            <i className="home large icon"></i>
+            <span className="item-label">Dashboard</span>
+          </Link>
+        </div> <br></br>
                 <br />
-                <h3 className="text-center">Edit Article</h3>
+                {/* <h3 className="text-center">Edit Article</h3> */}
                 <div className="jumbotron">
                     <form onSubmit={this.handleEditArticleSubmit}>
                         {inputFields}

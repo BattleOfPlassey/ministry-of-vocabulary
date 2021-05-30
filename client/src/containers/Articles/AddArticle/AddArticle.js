@@ -5,6 +5,8 @@ import { submitNewArticle } from '../../../store/actions/articlesActions';
 import ErrorMsg from '../../../components/ErrorMsg/ErrorMsg';
 import InputField from '../../../components/InputField/InputField';
 import { checkArticleUniqueness } from '../../../store/actions/articlesActions'
+import { Link } from "react-router-dom";
+
 
 const FIELDS = [
     {name: 'Word', type: 'text', label: 'Word'},
@@ -122,7 +124,19 @@ class AddArticle extends Component {
         return (
             <div className="container">
                 <br />
-                <h3 className="text-center">Add Article</h3>
+                <div className="Header">
+          <h1 className="heading">Add Word</h1>
+       
+        
+         
+          
+
+          <Link to="/home" className="Simple-Link">
+            <i className="home large icon"></i>
+            <span className="item-label">Dashboard</span>
+          </Link>
+        </div><br></br>
+                {/* <h3 className="text-center">Add Article</h3> */}
                 <div className="jumbotron">
                     <form onSubmit={this.handleNewArticleSubmit}>
                         <InputField key={FIELDS[0].name}

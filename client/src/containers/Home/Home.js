@@ -14,6 +14,8 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 // import CustomPagination from "components/Pagination.js";
 import debounce from "../../components/Debouncing/debounce";
+import {ToastContainer,toast} from 'react-toastify'
+
 
 // const MATCHING_ITEM_LIMIT = 25;
 class Home extends Component {
@@ -201,10 +203,21 @@ class Home extends Component {
 
     return (
       <div className="container">
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <br />
         <div className="Header">
           <h1 className="heading">Dashboard</h1>
-          {this.props.isAuthRole.authenticatedRole == "ROOT" && (
+          {this.props.isAuthRole.authenticatedRole == "ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4" && (
             <Link to="/cp" className="Simple-Link">
               <i className="unlock alternate large icon"></i>
               <span className="item-label">Access Manage</span>

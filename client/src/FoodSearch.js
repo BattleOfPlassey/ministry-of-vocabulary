@@ -14,7 +14,7 @@ class FoodSearch extends React.Component {
   };
 
   debouncedLog = debounce(value=>{Client.search(value, foods => {
-    console.log(foods)
+    // console.log(foods)
      this.setState({
       foods: foods.articles.slice(0, MATCHING_ITEM_LIMIT)
     });

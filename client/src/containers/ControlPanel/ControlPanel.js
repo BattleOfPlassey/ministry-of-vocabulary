@@ -10,6 +10,7 @@ import "./ControlPanel.css";
 // import Client from "../../ClientMongo";
 import { Link } from "react-router-dom";
 // import CustomPagination from "components/Pagination.js";
+import * as env from '../../config'
 
 // const MATCHING_ITEM_LIMIT = 25;
 class ControlPanel extends Component {
@@ -65,7 +66,7 @@ class ControlPanel extends Component {
   // }
   handleDelete(article) {
     // console.log(article);
-    fetch("/api/root/delete/" + article._id, {
+    fetch(`${env.HOST}/api/root/delete/` + article._id, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwtToken"),
         "Content-Type": "application/json",
@@ -75,7 +76,7 @@ class ControlPanel extends Component {
   }
 
   handleAdminChange(article) {
-    fetch("/api/root/edit/?id="+article._id+"&role="+article.role, {
+    fetch(`${env.HOST}/api/root/edit/?id=`+article._id+`&role=`+article.role, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwtToken"),
         "Content-Type": "application/json",
@@ -87,7 +88,7 @@ class ControlPanel extends Component {
   render() {
     // console.log(this.props.allArticles )
     // this.props.initArticles(this.state.page,this.state.limit);
-    if (this.props.isAuthenticated.authenticatedRole != 'ROOT') {
+    if (this.props.isAuthenticated.authenticatedRole != 'ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4') {
       return <Redirect to="/" />;
     }
   
@@ -114,6 +115,11 @@ class ControlPanel extends Component {
       this.state.dummyArticle;
 
     const add = "-";
+    const ROLE = {
+      ADMIN: 'ayJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzFjOTY3YzM1MmM0MDAxNTE5MDJmMyIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTYyMjI5MTIyNX0.s87wzlIa_a2NXxBWDR5SiohvNFAkSPmRgMkfhkk-mQg',
+      USER: 'uyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwN2ZhYzVmM2M5ZTRjMDAxNWFhMzg4OSIsImVtYWlsIjoidGVzdDFAdGVzdC5jb20iLCJpYXQiOjE2MjIyOTg2NzZ9.oIM-gCDpj-tnM49WXmR68BSes-zoa65nnSivMvugE0k',
+      ROOT: 'ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4'
+    }
     let tableOfArticles = (
       <table className="ui celled table">
         <thead>
@@ -154,13 +160,13 @@ class ControlPanel extends Component {
             <tr key={article._id}>
               <td>{article.email}</td>
               <td>{`${article.emailVerified}`}</td>
-              <td>{article.role ? article.role : add}</td>
-              <td className="positive selectable">{article.role!='ROOT' &&
+              <td>{article.role ? (article.role===ROLE.ADMIN ? 'Administrator' : 'User' ): add}</td>
+              <td className="positive selectable">{article.role!=ROLE.ROOT &&
                 <a onClick={() => this.handleAdminChange(article)}>
                   <i className="icon exchange"></i>
                 </a>}
               </td>
-              <td className="error selectable">{article.role!='ROOT' &&
+              <td className="error selectable">{article.role!=ROLE.ROOT &&
                 <a onClick={() => this.handleDelete(article)}>
                   <i className="icon delete"></i>
                 </a>}

@@ -29,7 +29,7 @@ const isAuthenticated = (req, res, next) => {
     }
 }
 
-router.get('/',isAuthenticated, authRole('ROOT'), celebrate({
+router.get('/',isAuthenticated, authRole('ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4'), celebrate({
     query: {
         page: Joi.number().min(1).required(),
         limit: Joi.number().min(5),
@@ -64,7 +64,7 @@ function authRole(role) {
   }
 
 
-  router.delete('/delete/:id', isAuthenticated, authRole('ROOT'), (req, res) => {
+  router.delete('/delete/:id', isAuthenticated, authRole('ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4'), (req, res) => {
     // console.log(req);
     User.findByIdAndDelete( req.params.id, (error, item) => {
         // console.log(err)
@@ -76,12 +76,12 @@ function authRole(role) {
     })
 });
 
-router.post('/edit/', isAuthenticated, authRole('ROOT'), (req, res) => {
+router.post('/edit/', isAuthenticated, authRole('ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4'), (req, res) => {
   let role = req.query.role;
-  if (role == "USER") {
-    role = "ADMIN";
+  if (role == "uyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwN2ZhYzVmM2M5ZTRjMDAxNWFhMzg4OSIsImVtYWlsIjoidGVzdDFAdGVzdC5jb20iLCJpYXQiOjE2MjIyOTg2NzZ9.oIM-gCDpj-tnM49WXmR68BSes-zoa65nnSivMvugE0k") {
+    role = "ayJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzFjOTY3YzM1MmM0MDAxNTE5MDJmMyIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTYyMjI5MTIyNX0.s87wzlIa_a2NXxBWDR5SiohvNFAkSPmRgMkfhkk-mQg";
   } else {
-    role = "USER";
+    role = "uyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwN2ZhYzVmM2M5ZTRjMDAxNWFhMzg4OSIsImVtYWlsIjoidGVzdDFAdGVzdC5jb20iLCJpYXQiOjE2MjIyOTg2NzZ9.oIM-gCDpj-tnM49WXmR68BSes-zoa65nnSivMvugE0k";
   }
 
   User.findByIdAndUpdate(req.query.id, { role: role }, (err) => {

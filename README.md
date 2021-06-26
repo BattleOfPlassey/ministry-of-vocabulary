@@ -1,6 +1,6 @@
-# Ministry Of Vocabulary
+# Vocab.js.org codenamed Ministry Of Vocabulary
 
-A Full Stack app which helps you learn new words, improve your vocabulary and explore mnemonics for associating memory triggers and experiences. 
+A Full Stack app which helps you learn new words, improve your vocabulary and explore mnemonics. 
 
 ### Features
 1. Node.js/Express.

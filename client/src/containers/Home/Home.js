@@ -68,7 +68,7 @@ class Home extends Component {
     ) {
       this.toggleShowMyArticles();
     }
-    document.title = "Dashboard | Ministry Of Vocabulary";
+    document.title = "Dashboard | vocab.js.org";
   }
 
   componentDidMount() {

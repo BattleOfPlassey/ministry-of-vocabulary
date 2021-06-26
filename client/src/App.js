@@ -9,6 +9,8 @@ import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userLogoutRequest } from './store/actions/usersActions';
 import logo from "./../images/Logo4.png";
+import JSLogo from "./../images/svg-small.svg";
+
 var myHeaders = new Headers();
 // myHeaders.append("Access-Control-Allow-Origin", "*");
 // myHeaders.append("Access-Control-Allow-Credentials", "true");
@@ -29,7 +31,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    document.title = "Ministry Of Vocabulary | Home";
+    document.title = "Vocab.js.org | Home";
     fetch("https://ministry-of-vocabulary.herokuapp.com",requestOptions);
     if (localStorage.getItem("myValueInLocalStorage"))
       this.setState({
@@ -95,7 +97,10 @@ class App extends Component {
         </div>
 
         <div className="ui text container">
-          <img className="image" src={logo} alt="MOV logo" />
+          {/* <img className="image" src={logo} alt="Vocab logo" /> */}
+          <h1 className="text-gradient">VOCAB.</h1>
+          <img className="image" src={JSLogo} alt="JS.org Logo" />
+          
         </div>
 
         <div className="rowTable">
@@ -103,12 +108,21 @@ class App extends Component {
             <FoodSearch onFoodClick={this.addFood} />
           </div>
           <div className="columnTable">
-            <SelectedFoods
+          { (this.state.selectedFoods && this.state.selectedFoods.length > 0) && <SelectedFoods
               foods={selectedFoods}
               onFoodClick={this.removeFoodItem}
-            />
+            />}
           </div>
         </div>
+          <footer className="footercustom">
+              <div>
+              vocab.js.org helps you learn new words, improve your vocabulary and explore mnemonics.
+              </div>
+               <br></br>
+               <div>
+              Made in <i className="india flag"></i> by <a target="blank" href="https://palashshrivastava.tech">Palash Shrivastava </a>
+              </div>
+                </footer> 
       </div>
     );
   }

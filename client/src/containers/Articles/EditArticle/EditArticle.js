@@ -40,7 +40,7 @@ class EditArticle extends Component {
                 errors: {...errors}
             };
         });
-        document.title = "Edit Article | Ministry Of Vocabulary";
+        document.title = "Edit Article | Vocab.js.org";
     }
 
     handleValidation = (field, value) => {

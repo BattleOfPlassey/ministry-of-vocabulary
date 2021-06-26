@@ -8,6 +8,8 @@ body {
   box-sizing: border-box;
 }
 
+
+
 .rowTable {
   /* margin-left:15px; */
   /* margin-right:5px; */
@@ -19,8 +21,8 @@ body {
 }
 
 .columnTable {
-  float: left;
-  width: 50%;
+  /* float: left; */
+  /* width: 50%; */
   padding: 10px;
 }
 
@@ -43,6 +45,11 @@ th, td {
 
 #food-search {
   /* margin-bottom: 5em; */
+  
+}
+
+.search { 
+  text-align:center
 }
 
 .image {
@@ -53,7 +60,7 @@ th, td {
   margin-right: auto;
   margin-bottom: 2em;
   margin-top: 10px;
-  width: 40%;
+  width: 15%;
  
 }
   @media (max-width: 1170px) {
@@ -88,8 +95,33 @@ th, td {
     }
 
     @media (max-width: 420px) {
- 
+      .text-gradient{
+        
+        font-size: 35px!important;
+ }
       .image {
         
-        width: 59%;
+        width: 19%;
       }}
+
+ /*      .text-gradient{
+        font-weight: bold;
+        text-align: center;
+        background: #314dea; 
+        background: -webkit-linear-gradient(right, #314dea 15%, #9455dc 40%, #ec5d57 70%, #ec5d57 100%);
+        background: linear-gradient(to right, #314dea 15%, #9455dc 40%, #ec5d57 70%, #ec5d57 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    } */
+
+    .text-gradient{
+      font-weight: bold;
+      text-align: center;
+      font-size: 55px;
+      margin-bottom: -10px;
+      background: #314dea; /* fallback for old browsers */
+      background: -webkit-linear-gradient(right, #314dea 15%, #9455dc 40%, #ec5d57 70%, #ec5d57 100%);
+      background: linear-gradient(to right, #314dea 15%, #9455dc 40%, #ec5d57 70%, #ec5d57 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+  }

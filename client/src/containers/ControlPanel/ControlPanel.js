@@ -54,7 +54,7 @@ class ControlPanel extends Component {
   };
 
   componentWillMount() {
-    document.title = "Control Panel | Ministry Of Vocabulary";
+    document.title = "Control Panel |vocab.js.org";
   }
 
   componentDidMount() {

@@ -38,9 +38,9 @@ class FullArticle extends Component {
         if (response.success !== "success") {
           //   console.log(response);
           toast.error("You are not authorised to delete. Contact Administrator!");
-        }
-          toast.info("Delete Success");
-          this.props.history.push("/home");
+        } else this.props.history.push("/home");
+
+          // toast.info("Delete Success");
       });
       
 
@@ -74,7 +74,7 @@ class FullArticle extends Component {
   }
 
   render() {
-    document.title = this.props.article.Word + " | Ministry Of Vocabulary";
+    document.title = this.props.article.Word + " | Vocab.js.org";
     return (
       <div className="container">
         <br />
@@ -90,7 +90,7 @@ class FullArticle extends Component {
           pauseOnHover
         />
         <div className="Header">
-          <h1 className="heading">Ministry Of Vocabulary</h1>
+          <h1 className="heading">Flash Card</h1>
        
           {!this.props.isAuthenticated && (
             <Link to="/login" className="Simple-Link">

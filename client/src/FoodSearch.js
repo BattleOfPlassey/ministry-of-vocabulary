@@ -74,7 +74,7 @@ class FoodSearch extends React.Component {
 
     return (
       <div id="food-search">
-        <table className="ui selectable unstackable table celled large orange">
+        <table className="ui selectable  table celled large orange">
           <thead>
             <tr>
               <th colSpan="4">
@@ -95,17 +95,18 @@ class FoodSearch extends React.Component {
                     className="remove icon"
                     onClick={this.handleSearchCancel}
                     style={removeIconStyle}
-                  />
+                  /> 
                 </div>
+                {(this.state.foods && this.state.foods.length > 0) && <span style={{'float': 'right','font-size': 'x-small' }}>*tap any to bookmark</span>}
               </th>
             </tr>
-            <tr>
+            {(this.state.foods && this.state.foods.length > 0) && <tr>
               <th>Word</th>
               <th className="">Meaning</th>
               <th className="">Mnemonic</th>
               <th className="">Usage</th>
               {/* <th>Carbs (g)</th> */}
-            </tr>
+            </tr>}
           </thead>
           <tbody>
             

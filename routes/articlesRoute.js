@@ -236,11 +236,22 @@ router.get('/words',(req, res) => {
     return;
   }
     // console.log(param)
-    Article.find({'Word': {$regex : "^" + param, $options: 'i'}},null,{limit:7}, (err, articles) => {
+    Article.find(
+      { Word: { $regex: "^" + param, $options: "i" } },
+      null,
+      {
+        sort: {
+          Barrons: -1,
+          top1k: -1,
+        },
+        limit: 7,
+      },
+      (err, articles) => {
         if (err) throw err;
         // console.log(articles)
         res.json({ articles });
-    })
+      }
+    );
 });
 
 

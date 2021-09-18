@@ -22,7 +22,7 @@
     "server": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "client": "node start-client.js",
-    "dev": "nodemon server.js",
+    "dev": "nodemon --ignore client/ server.js",
     "lint": "eslint ."
   },
   "devDependencies": {

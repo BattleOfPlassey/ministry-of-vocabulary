@@ -1,7 +1,7 @@
 import React from "react";
 // import Client from "./Client";
 import Client from "./ClientMongo";
-import debounce from "./components/Debouncing/debounce"
+import debounce from "./components/Debouncing/debounce";
 
 const MATCHING_ITEM_LIMIT = 25;
 
@@ -10,36 +10,38 @@ class FoodSearch extends React.Component {
     foods: [],
     showRemoveIcon: false,
     searchValue: "",
-    loading : false
+    loading: false,
   };
 
-  debouncedLog = debounce(value=>{Client.search(value, foods => {
-    // console.log(foods)
-     this.setState({
-      foods: foods.articles.slice(0, MATCHING_ITEM_LIMIT)
+  debouncedLog = debounce((value) => {
+    Client.search(value, (foods) => {
+      // console.log(foods)
+      this.setState({
+        foods: foods.articles.slice(0, MATCHING_ITEM_LIMIT),
+      });
+      this.setState({ loading: false });
     });
-    this.setState({loading:false});
-  })},500)
+  }, 500);
 
-  handleSearchChange = e => {
-    this.setState({loading:true});
+  handleSearchChange = (e) => {
+    this.setState({ loading: true });
     const value = e.target.value;
 
     this.setState({
-      searchValue: value
+      searchValue: value,
     });
 
     if (value === "") {
       this.setState({
         foods: [],
         showRemoveIcon: false,
-        loading:false
+        loading: false,
       });
     } else {
       this.setState({
-        showRemoveIcon: true
+        showRemoveIcon: true,
       });
-      this.debouncedLog(value)
+      this.debouncedLog(value);
       // Client.search(value, foods => {
       //   // console.log(foods)
       //    this.setState({
@@ -54,10 +56,14 @@ class FoodSearch extends React.Component {
     this.setState({
       foods: [],
       showRemoveIcon: false,
-      searchValue: ""
+      searchValue: "",
     });
   };
-
+  executeScroll = () =>
+    this.myRef.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
   render() {
     const { showRemoveIcon, foods } = this.state;
     const removeIconStyle = showRemoveIcon ? {} : { visibility: "hidden" };
@@ -74,7 +80,10 @@ class FoodSearch extends React.Component {
 
     return (
       <div id="food-search">
-        <table className="ui selectable  table celled large orange">
+        <table
+          ref={(ref) => (this.myRef = ref)}
+          className="ui selectable  table celled large orange"
+        >
           <thead>
             <tr>
               <th colSpan="4">
@@ -83,37 +92,76 @@ class FoodSearch extends React.Component {
                     <input
                       className="prompt"
                       type="text"
-                      style={{width: "100%"}}
+                      style={{ width: "100%" }}
                       placeholder="Search for a Word"
                       value={this.state.searchValue}
                       onChange={this.handleSearchChange}
                       size="80px"
+                      onFocus={this.executeScroll}
                     />
-                    <i className="search icon" /> 
+                    <i className="search icon" />
                   </div>
                   <i
                     className="remove icon"
                     onClick={this.handleSearchCancel}
                     style={removeIconStyle}
-                  /> 
+                  />
                 </div>
-                {(this.state.foods && this.state.foods.length > 0) && <span style={{'float': 'right','font-size': 'x-small' }}>*tap any to bookmark</span>}
+                {this.state.foods && this.state.foods.length > 0 && (
+                  <span style={{ float: "right", "font-size": "x-small" }}>
+                    *tap any to bookmark
+                  </span>
+                )}
               </th>
             </tr>
-            {(this.state.foods && this.state.foods.length > 0) && <tr>
-              <th>Word</th>
-              <th className="">Meaning</th>
-              <th className="">Mnemonic</th>
-              <th className="">Usage</th>
-              {/* <th>Carbs (g)</th> */}
-            </tr>}
+            {this.state.foods && this.state.foods.length > 0 && (
+              <tr>
+                <th>Word</th>
+                <th className="">Meaning</th>
+                <th className="">Mnemonic</th>
+                <th className="">Usage</th>
+                {/* <th>Carbs (g)</th> */}
+              </tr>
+            )}
           </thead>
-          <tbody>
-            
-            {foodRows}
-          </tbody>
+          <tbody>{foodRows}</tbody>
         </table>
-        {this.state.loading && <div className="ui active centered inline loader"></div>}
+        {this.state.loading &&
+        !(this.state.foods && this.state.foods.length) ? (
+          <div className="ui fluid placeholder">
+            <div className="header">
+              <div className="line" />
+              <div className="line" />
+            </div>
+            <div className="paragraph">
+              <div className="line" />
+              <div className="line" />
+              <div className="line" />
+            </div>
+            <div className="header">
+              <div className="line" />
+              <div className="line" />
+            </div>
+            <div className="paragraph">
+              <div className="line" />
+              <div className="line" />
+              <div className="line" />
+            </div>
+            <div className="header">
+              <div className="line" />
+              <div className="line" />
+            </div>
+            <div className="paragraph">
+              <div className="line" />
+              <div className="line" />
+              <div className="line" />
+            </div>
+          </div>
+        ) : (
+          this.state.loading && (
+            <div className="ui active centered inline loader"></div>
+          )
+        )}
       </div>
     );
   }

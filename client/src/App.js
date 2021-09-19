@@ -86,7 +86,7 @@ class App extends Component {
           <div className="right menu">
             <a
               className="ui item"
-              href="https://github.com/lameguest21/ministry-of-vocabulary"
+              href="https://github.com/BattleOfPlassey/ministry-of-vocabulary"
               target="blank"
             >
               <i className="github large icon"></i>Contribute

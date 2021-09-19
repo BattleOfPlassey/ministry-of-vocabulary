@@ -84,6 +84,8 @@ class App extends Component {
       <div className="App">
         <div className="ui secondary  menu">
           <div className="right menu">
+            
+            
             <a
               className="ui item"
               href="https://github.com/BattleOfPlassey/ministry-of-vocabulary"
@@ -122,6 +124,7 @@ class App extends Component {
                <div>
               Made in <i className="india flag"></i> by <a target="blank" href="https://blog.palashsh.me/docs/whoami">Palash Shrivastava </a>
               </div>
+              {/* <div><a  className="" href="https://www.buymeacoffee.com/BattleOfPlassey" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style={{'height': '50px','marginTop':'3px'}}/></a></div> */}
                 </footer> 
       </div>
     );

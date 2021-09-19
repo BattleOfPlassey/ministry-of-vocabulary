@@ -1,21 +1,25 @@
-# Vocab.js.org codenamed Ministry Of Vocabulary
+# VOCAB.JS.ORG 
+(codename-Ministry Of Vocabulary)
 
-A Full Stack app which helps you learn new words, improve your vocabulary and explore mnemonics. 
+A MERN Stack app which helps you learn new words, improve your vocabulary and explore mnemonics. 
+
+### Use Case
+I developed this during my time with GRE/TOEFL preparation. I came to an epiphany that humans remember something better if they attach a strong physical memory to anything in their life. I applied the same pricipal and thought it would be helpful for students who find it hard to remember tough english words.
 
 ### Features
-1. Node.js/Express.
-2. React.js powered by Semantic UI.
-3. State Management with Redux.
-4. User Authentication with JWT.
-5. Database consisting of more than 4000 words with meaning, mnemonics, usage and more.
-6. Ability to perform CRUD operations.
-7. Improved and Secure API calls. API hits are significatly reduced by debouncing unnecessary calls to backend.
+1. Simple CRUD operations
+2. Node.js/Express.
+3. React.js powered by Semantic UI.
+4. Redux for State Management.
+5. User Authentication with JWT.
+6. Database consisting of more than 4000 words with meaning, mnemonics, usage and more.
+7. Improved and Secure API calls. 
+8. Deboucing API calls during typing, thus unnecessary backend calls are significatly reduced.
 
 ![](./Demo.gif)
 
 ## Future Implementations
-1. More Secure API
-2. Adding more words, meaning and mneomonics.
+1. Adding more words, meaning and mneomonics.
 
 
 ## Running locally

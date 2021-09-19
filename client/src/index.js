@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Appv2 from "./Appv2";
 // import App from "./App";
 import "./index.css";
-import "../semantic/dist/semantic.min.css";
+// import "../semantic/dist/semantic.min.css";
 import './index.css';
 
 import { BrowserRouter as Router } from 'react-router-dom';

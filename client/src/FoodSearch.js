@@ -106,6 +106,14 @@ class FoodSearch extends React.Component {
                     onClick={this.handleSearchCancel}
                     style={removeIconStyle}
                   />
+                   {this.state.loading &&
+        !(this.state.foods && this.state.foods.length) ? 
+          null
+         : (
+          this.state.loading && (
+            <div className="ui active small text loader inline  search1"></div>
+          )
+        )}
                 </div>
                 {this.state.foods && this.state.foods.length > 0 && (
                   <span style={{ float: "right", "font-size": "x-small" }}>
@@ -157,11 +165,7 @@ class FoodSearch extends React.Component {
               <div className="line" />
             </div>
           </div>
-        ) : (
-          this.state.loading && (
-            <div className="ui active centered inline loader"></div>
-          )
-        )}
+        ) : null }
       </div>
     );
   }

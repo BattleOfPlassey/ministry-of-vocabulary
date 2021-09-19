@@ -52,6 +52,14 @@ th, td {
   text-align:center
 }
 
+.search1{
+  cursor: default;
+  position: relative;
+  /* line-height: 1; */
+  /* text-align: center; */
+  float: inline-end;
+}
+
 .image {
   
   

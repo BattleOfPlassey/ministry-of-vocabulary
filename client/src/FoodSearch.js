@@ -102,7 +102,7 @@ class FoodSearch extends React.Component {
                     <i className="search icon" />
                   </div>
                   <i
-                    className="remove icon"
+                    className="remove icon cursor"
                     onClick={this.handleSearchCancel}
                     style={removeIconStyle}
                   />

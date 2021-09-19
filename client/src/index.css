@@ -60,6 +60,13 @@ th, td {
   float: inline-end;
 }
 
+tr {
+  cursor: pointer;}
+
+  .cursor{
+    cursor: pointer;
+  }
+
 .image {
   
   

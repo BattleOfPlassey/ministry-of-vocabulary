@@ -120,7 +120,7 @@ class App extends Component {
               </div>
                <br></br>
                <div>
-              Made in <i className="india flag"></i> by <a target="blank" href="https://palashshrivastava.tech">Palash Shrivastava </a>
+              Made in <i className="india flag"></i> by <a target="blank" href="https://blog.palashsh.me/docs/whoami">Palash Shrivastava </a>
               </div>
                 </footer> 
       </div>

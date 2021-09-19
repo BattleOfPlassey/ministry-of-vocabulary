@@ -1,25 +1,30 @@
 # VOCAB.JS.ORG 
-(codename-Ministry Of Vocabulary)
+codename Ministry Of Vocabulary
 
 A MERN Stack app which helps you learn new words, improve your vocabulary and explore mnemonics. 
 
-### Use Case
-I developed this during my time with GRE/TOEFL preparation. I came to an epiphany that humans remember something better if they attach a strong physical memory to anything in their life. I applied the same pricipal and thought it would be helpful for students who find it hard to remember tough english words.
+## Use Case
+I developed this project during my time with GRE/TOEFL preparation. I came to an epiphany that we humans remember something better if we attach a strong physical memory to anything in our lives.
 
-### Features
-1. Simple CRUD operations
-2. Node.js/Express.
-3. React.js powered by Semantic UI.
-4. Redux for State Management.
-5. User Authentication with JWT.
-6. Database consisting of more than 4000 words with meaning, mnemonics, usage and more.
-7. Improved and Secure API calls. 
-8. Deboucing API calls during typing, thus unnecessary backend calls are significatly reduced.
+I applied the same principle and thought it would be helpful for students who find it hard to remember tough English words.
 
+## Features
+- Database consisting of more than 40,000 words with meaning, mnemonics, usage and more
+- Simple CRUD operations
+- Node.js/Express.
+- React.js powered by Semantic UI.
+- Redux for State Management.
+- User Authentication with JWT.
+- Improved and Secure API calls. 
+- Deboucing API calls during typing, thus unnecessary backend calls are significatly reduced.
+
+### Demo
 ![](./Demo.gif)
 
 ## Future Implementations
 1. Adding more words, meaning and mneomonics.
+2. Improve UI
+3. Improve Auth, API and Security.
 
 
 ## Running locally
@@ -46,7 +51,7 @@ Inside `Client.js`, we use Fetch to make a request to the API:
 
 ```js
 // Inside Client.js
-return fetch(`/api/food?q=${query}`, {
+return fetch(`/api/word?q=${query}`, {
   // ...
 })
 ```
@@ -74,7 +79,7 @@ This setup provides two advantages:
 const apiBaseUrl = process.env.NODE_ENV === 'development' ? 'localhost:3001' : '/'
 ```
 
-This setup uses [concurrently](https://github.com/kimmobrunfeldt/concurrently) for process management. Executing `npm start` instructs `concurrently` to boot both the Webpack dev server and the API server.
+This setup uses [concurrently](https://github.com/kimmobrunfeldt/concurrently) for process management. Executing `npm start` instructs `concurrently` to boot both the Webpack dev server and the API server. The `react-scripts` are started in /client folder with the above command and `nodemon` starts the API server in dev mode thus enabling hot reloading with the exception of /client folder under watchlist which is ignored by nodemon.
 
 ## Deploying
 

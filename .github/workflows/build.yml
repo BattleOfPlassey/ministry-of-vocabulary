@@ -3,10 +3,10 @@ name: Build & deploy
 on:
   push:
     branches:
-      - main
+      - gh-release
   pull_request:
     branches:
-      - main
+      - gh-release
 
 jobs:
   build:
@@ -46,7 +46,7 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/gh-release'
    
     steps:
     - name: Download artifact

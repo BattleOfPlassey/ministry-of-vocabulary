@@ -31,12 +31,6 @@ jobs:
     - name: Install NPM packages
       run: npm i
     
-    - name: Create env file
-        run: |
-          cat << EOF >> .env
-          env="production"
-          EOF
-    
     - name: Build project
       run: npm run build
     

@@ -18,7 +18,7 @@ export default function SelectedFoods(props) {
       <thead>
         <tr>
           <th colSpan="4">
-            {/* <h3>Bookmarked Word</h3><span>(Click word to clear)</span> */}<a className="ui green ribbon label">Bookmarked Words</a>
+            {/* <h3>Bookmarked Word</h3><span>(Click word to clear)</span> */}<a className="ui orange ribbon label">Bookmarked Words</a>
             <span style={{'float': 'right','font-size': 'x-small' }}>*tap any to remove</span>
           </th>
         </tr>

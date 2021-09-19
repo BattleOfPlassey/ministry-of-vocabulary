@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { saveArticle } from '../../../store/actions/articlesActions';
 import ErrorMsg from '../../../components/ErrorMsg/ErrorMsg';
 import InputField from '../../../components/InputField/InputField';
-import {ToastContainer,toast} from 'react-toastify'
+import {toast} from 'react-toastify'
 import { Link } from "react-router-dom";
 import './EditArticle.css'
 

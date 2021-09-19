@@ -6,7 +6,7 @@ import {
   getMyArticles,
   search,
 } from "../../store/actions/articlesActions";
-import Article from "../../components/Article/Article";
+// import Article from "../../components/Article/Article";
 import WrappedLink from "../../components/WrappedLink/WrappedLink";
 import { userLogoutRequest } from "../../store/actions/usersActions";
 import "./Home.css";
@@ -14,7 +14,7 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 // import CustomPagination from "components/Pagination.js";
 import debounce from "../../components/Debouncing/debounce";
-import {ToastContainer,toast} from 'react-toastify'
+import {ToastContainer} from 'react-toastify'
 
 
 // const MATCHING_ITEM_LIMIT = 25;
@@ -96,7 +96,7 @@ class Home extends Component {
     }
 
     // const { currentPage, postsPerPage, contacts, loading } = this.state;
-    const { showRemoveIcon, page, limit, foods } = this.state;
+    const { showRemoveIcon } = this.state;
     // const indexOfLastPost = page * limit;
     // const indexOfFirstPost = indexOfLastPost - postsPerPage;
     // const currentPosts = contacts.slice(indexOfFirstPost, indexOfLastPost);
@@ -177,29 +177,29 @@ class Home extends Component {
       </table>
     );
 
-    let myArticles = [];
-    if (this.props.isAuthenticated && this.state.showMyArticles) {
-      if (this.props.myArticles) {
-        myArticles = [...this.props.myArticles];
-      } else {
-        myArticles = [
-          ...JSON.parse(localStorage.getItem("BasicMERNStackAppMyArticles")),
-        ];
-      }
-      myArticles = myArticles.map((article) => (
-        <Article key={article._id} id={article._id} title={article.title} />
-      ));
-    }
+    // let myArticles = [];
+    // if (this.props.isAuthenticated && this.state.showMyArticles) {
+    //   if (this.props.myArticles) {
+    //     myArticles = [...this.props.myArticles];
+    //   } else {
+    //     myArticles = [
+    //       ...JSON.parse(localStorage.getItem("BasicMERNStackAppMyArticles")),
+    //     ];
+    //   }
+    //   myArticles = myArticles.map((article) => (
+    //     <Article key={article._id} id={article._id} title={article.title} />
+    //   ));
+    // }
 
-    const showArticlesLink = (
-      <Link
-        to={this.state.showMyArticles ? "/" : "/article/myarticles"}
-        className="Simple-Link"
-        onClick={this.toggleShowMyArticles}
-      >
-        {this.state.showMyArticles ? "All Articles" : "My Articles"}
-      </Link>
-    );
+    // const showArticlesLink = (
+    //   <Link
+    //     to={this.state.showMyArticles ? "/" : "/article/myarticles"}
+    //     className="Simple-Link"
+    //     onClick={this.toggleShowMyArticles}
+    //   >
+    //     {this.state.showMyArticles ? "All Articles" : "My Articles"}
+    //   </Link>
+    // );
 
     return (
       <div className="container">
@@ -217,7 +217,7 @@ class Home extends Component {
         <br />
         <div className="Header">
           <h1 className="heading">Dashboard</h1>
-          {this.props.isAuthRole.authenticatedRole == "ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4" && (
+          {this.props.isAuthRole.authenticatedRole === "ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4" && (
             <Link to="/cp" className="Simple-Link">
               <i className="unlock alternate large icon"></i>
               <span className="item-label">Access Manage</span>

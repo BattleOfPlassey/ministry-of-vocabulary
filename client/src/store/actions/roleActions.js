@@ -2,17 +2,17 @@ import * as actionTypes from './actionTypes';
 import * as env from '../../config';
 
 
-const options = (data) => {
-    return {
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        method: 'post',
-        body: JSON.stringify(data)
-    };
-};
+// const options = (data) => {
+//     return {
+//         headers: {
+//             'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+//             'Content-Type': 'application/json',
+//             'Accept': 'application/json'
+//         },
+//         method: 'post',
+//         body: JSON.stringify(data)
+//     };
+// };
 
 export const getAllUsers = (page,limit) => {
     return dispatch => {

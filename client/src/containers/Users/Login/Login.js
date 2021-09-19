@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { userLoginRequest } from '../../../store/actions/usersActions';
 import InputField from '../../../components/InputField/InputField';
-import { NavLink, Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
 
 const FIELDS = [
     {name: 'email', type: 'text', label: 'Email', placeholder:'Enter your email'},

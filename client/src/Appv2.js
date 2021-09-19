@@ -7,7 +7,7 @@ import Login from './containers/Users/Login/Login';
 import FullArticle from './containers/Articles/FullArticle/FullArticle';
 import AddArticle from './containers/Articles/AddArticle/AddArticle';
 import EditArticle from './containers/Articles/EditArticle/EditArticle';
-import NavigationBar from './containers/NavigationBar/NavigationBar';
+// import NavigationBar from './containers/NavigationBar/NavigationBar';
 import ControlPanel from './containers/ControlPanel/ControlPanel';
 
 class Appv2 extends Component {

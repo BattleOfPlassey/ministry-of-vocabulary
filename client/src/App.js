@@ -5,10 +5,10 @@ import FoodSearch from "./FoodSearch";
 // import ReactGA from 'react-ga';
 // ReactGA.initialize('G-6K6TD38WSJ');
 // ReactGA.pageview(window.location.pathname + window.location.search);
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userLogoutRequest } from './store/actions/usersActions';
-import logo from "./../images/Logo4.png";
+// import logo from "./../images/Logo4.png";
 import JSLogo from "./../images/svg-small.svg";
 
 var myHeaders = new Headers();

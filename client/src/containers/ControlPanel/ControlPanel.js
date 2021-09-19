@@ -88,7 +88,7 @@ class ControlPanel extends Component {
   render() {
     // console.log(this.props.allArticles )
     // this.props.initArticles(this.state.page,this.state.limit);
-    if (this.props.isAuthenticated.authenticatedRole != 'ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4') {
+    if (this.props.isAuthenticated.authenticatedRole !== 'ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4') {
       return <Redirect to="/" />;
     }
   
@@ -97,7 +97,7 @@ class ControlPanel extends Component {
     }
 
     // const { currentPage, postsPerPage, contacts, loading } = this.state;
-    const { showRemoveIcon, page, limit, foods } = this.state;
+    // const { showRemoveIcon, page, limit, foods } = this.state;
     // const indexOfLastPost = page * limit;
     // const indexOfFirstPost = indexOfLastPost - postsPerPage;
     // const currentPosts = contacts.slice(indexOfFirstPost, indexOfLastPost);
@@ -108,7 +108,7 @@ class ControlPanel extends Component {
 
     // const prevPage = () => this.setState({ page: currentPage - 1 });
 
-    const removeIconStyle = showRemoveIcon ? {} : { visibility: "hidden" };
+    // const removeIconStyle = showRemoveIcon ? {} : { visibility: "hidden" };
     let allArticles =
       this.props.allArticles ||
       JSON.parse(localStorage.getItem("AllUsers")) ||
@@ -161,12 +161,12 @@ class ControlPanel extends Component {
               <td>{article.email}</td>
               <td>{`${article.emailVerified}`}</td>
               <td>{article.role ? (article.role===ROLE.ADMIN ? 'Administrator' : 'User' ): add}</td>
-              <td className="positive selectable">{article.role!=ROLE.ROOT &&
+              <td className="positive selectable">{article.role!==ROLE.ROOT &&
                 <a onClick={() => this.handleAdminChange(article)}>
                   <i className="icon exchange"></i>
                 </a>}
               </td>
-              <td className="error selectable">{article.role!=ROLE.ROOT &&
+              <td className="error selectable">{article.role!==ROLE.ROOT &&
                 <a onClick={() => this.handleDelete(article)}>
                   <i className="icon delete"></i>
                 </a>}

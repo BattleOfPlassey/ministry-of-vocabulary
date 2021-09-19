@@ -24,6 +24,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 13.x
+
+    - name: unset ci
+      run: unset CI
     
     - name: Install NPM packages
       run: npm i

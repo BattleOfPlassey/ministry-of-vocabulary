@@ -1,31 +1,29 @@
-# VOCAB.JS.ORG 
+# [vocab.js.org](https://vocab.js.org)
 codename Ministry Of Vocabulary
 
 A MERN Stack app which helps you learn new words, improve your vocabulary and explore mnemonics. 
 
 ## Use Case
-I developed this project during my time with GRE/TOEFL preparation. I came to an epiphany that we humans remember something better if we attach a strong physical memory to anything in our lives.
+I developed this project during my time with GRE/TOEFL preparation. I came to an epiphany that we humans can recall something better if we attach a strong physical memory to that something in our lives.
 
 I applied the same principle and thought it would be helpful for students who find it hard to remember tough English words.
 
 ## Features
-- Database consisting of more than 40,000 words with meaning, mnemonics, usage and more
-- Simple CRUD operations
-- Node.js/Express.
-- React.js powered by Semantic UI.
-- Redux for State Management.
-- User Authentication with JWT.
-- Improved and Secure API calls. 
-- Deboucing API calls during typing, thus unnecessary backend calls are significatly reduced.
+- [x] NoSQL Database with around 40,000 records of words with meaning, mnemonics, usage and more. Used MongoDB Atlas to host the same.
+- [x] Simple CRUD operations
+- [x] Node.js/Express.
+- [x] React.js powered by Semantic UI.
+- [x] Redux for State Management.
+- [x] User Authentication with JWT.
+- [x] Improved and Secure API calls. 
+- [x] Deboucing API calls during typing, thus unnecessary backend calls are significatly reduced.
+- [x] Production deployment(API + Front End) through `main` branch. CI/CD pipeline setup in Heroku.
+- [x] Front End only deployment on `gh-release` branch through GitHub Actions to build and deploy on `gh-pages`.
+- [ ] Adding more words, meaning and mneomonics.
+- [ ] Improvment in UI 💅
 
 ### Demo
 ![](./Demo.gif)
-
-## Future Implementations
-1. Adding more words, meaning and mneomonics.
-2. Improve UI
-3. Improve Auth, API and Security.
-
 
 ## Running locally
 
@@ -80,68 +78,6 @@ const apiBaseUrl = process.env.NODE_ENV === 'development' ? 'localhost:3001' : '
 ```
 
 This setup uses [concurrently](https://github.com/kimmobrunfeldt/concurrently) for process management. Executing `npm start` instructs `concurrently` to boot both the Webpack dev server and the API server. The `react-scripts` are started in /client folder with the above command and `nodemon` starts the API server in dev mode thus enabling hot reloading with the exception of /client folder under watchlist which is ignored by nodemon.
-
-## Deploying
-
-### Background
-
-The app is ready to be deployed to Heroku.
-
-In production, Heroku will use `Procfile` which boots just the server:
-
-```
-web: npm run server
-```
-
-Inside `server.js`, we tell Node/Express we'd like it to serve static assets in production:
-
-```
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
-```
-
-You just need to have Webpack produce a static bundle of the React app (below).
-
-### Steps
-
-We assume basic knowledge of Heroku.
-
-**0. Setup your Heroku account and Heroku CLI**
-
-For installing the CLI tool, see [this article](https://devcenter.heroku.com/articles/heroku-command-line).
-
-**1. Build the React app**
-
-Running `npm run build` creates the static bundle which we can then use any HTTP server to serve:
-
-```
-cd client/
-npm run build
-```
-
-**2. Commit the `client/build` folder to source control**
-
-From the root of the project:
-
-```
-git add client/build
-git commit -m 'Adding `build` to source control'
-```
-
-**3. Create the Heroku app**
-
-```
-heroku apps:create <app-name>
-```
-
-**4. Push to Heroku**
-
-```
-git push heroku master
-```
-
-Heroku will give you a link at which to view your live app.
 
 ## Credits
 

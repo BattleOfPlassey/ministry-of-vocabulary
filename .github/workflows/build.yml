@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - gh-release
-  pull_request:
-    branches:
-      - gh-release
+
 
 jobs:
   build:

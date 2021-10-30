@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -8,10 +9,6 @@ const User = require('../models/usersModel.js');
 const config = require('../config.js');
 
 let router = express.Router();
-const ROLE = {
-    ADMIN: 'ayJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzFjOTY3YzM1MmM0MDAxNTE5MDJmMyIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTYyMjI5MTIyNX0.s87wzlIa_a2NXxBWDR5SiohvNFAkSPmRgMkfhkk-mQg',
-    BASIC: 'uyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwN2ZhYzVmM2M5ZTRjMDAxNWFhMzg4OSIsImVtYWlsIjoidGVzdDFAdGVzdC5jb20iLCJpYXQiOjE2MjIyOTg2NzZ9.oIM-gCDpj-tnM49WXmR68BSes-zoa65nnSivMvugE0k'
-  }
 
 const checkForErrors = ({ Word, Meaning }) => {
     let errors = {};
@@ -178,10 +175,8 @@ router.post('/edit/:id', isAuthenticated, (req, res) => {
     }
 });
 
-router.delete('/delete/:id', isAuthenticated, authRole(ROLE.ADMIN), (req, res) => {
-    // console.log(req);
+router.delete('/delete/:id', isAuthenticated, authRole(process.env.ADMIN), (req, res) => {
     Article.findByIdAndDelete( req.params.id, (error, item) => {
-        // console.log(err)
         if (!item){
             res.json({ Error: 'Could not find document. Something went wrong' });
         }else{
@@ -197,11 +192,10 @@ router.delete('/delete/:id', isAuthenticated, authRole(ROLE.ADMIN), (req, res) =
         .then()
         .catch(err => console.log(err))
 
-        // console.log(isAdmin)
-        
       if (isAdmin.role !== role) {
         res.status(401).json({ error: 'Not Authorised to delete' });
-        return res.send('Not allowed')
+        // return res.send('Not allowed')
+        return false
       }
   
       next()
@@ -255,10 +249,28 @@ router.get('/words',(req, res) => {
 });
 
 
+/* router.get('/Sord', (req, res) => {
+    console.log("🚀 ~ file: articlesRoute.js ~ line 261 ~ router.get ~ req.query.q", req)
+   
+      if (req.query && req.query.q && req.query.q !== '') {
+        
+            // Article.findById(req.params.q, (err, article) => {
+            //     if (err) throw err;
+            //     res.json({ article });
+            // })
+            Article.findOne({Word: {$regex : "^" + req.query.q + "$", $options: 'i'}},(err, article) => {
+                if (err) throw err;
+                res.json({ article });
+            })
+      
+      } else {
+        res.status(401).json({ error: 'Please provide query parameter' });
+      }
+}); */
+
 router.get('/:id', (req, res) => {
     
     // const ObjectId = require("mongoose").Types.ObjectId;
-    
       if (ObjectId.isValid(req.params.id)) {
         if (String(new ObjectId(req.params.id)) === req.params.id) {
             Article.findById(req.params.id, (err, article) => {
@@ -271,9 +283,5 @@ router.get('/:id', (req, res) => {
       } else {
         res.status(401).json({ error: 'Provided _id is not valid' });
       }
-    
-
-
-    
 });
 module.exports = router;

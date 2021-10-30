@@ -88,7 +88,7 @@ class ControlPanel extends Component {
   render() {
     // console.log(this.props.allArticles )
     // this.props.initArticles(this.state.page,this.state.limit);
-    if (this.props.isAuthenticated.authenticatedRole !== 'ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4') {
+    if (this.props.isAuthenticated.authenticatedRole !== process.env.REACT_APP_ROOT) {
       return <Redirect to="/" />;
     }
   
@@ -116,9 +116,9 @@ class ControlPanel extends Component {
 
     const add = "-";
     const ROLE = {
-      ADMIN: 'ayJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzFjOTY3YzM1MmM0MDAxNTE5MDJmMyIsImVtYWlsIjoidGVzdEB0ZXN0LmNvbSIsImlhdCI6MTYyMjI5MTIyNX0.s87wzlIa_a2NXxBWDR5SiohvNFAkSPmRgMkfhkk-mQg',
-      USER: 'uyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwN2ZhYzVmM2M5ZTRjMDAxNWFhMzg4OSIsImVtYWlsIjoidGVzdDFAdGVzdC5jb20iLCJpYXQiOjE2MjIyOTg2NzZ9.oIM-gCDpj-tnM49WXmR68BSes-zoa65nnSivMvugE0k',
-      ROOT: 'ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4'
+      ADMIN: process.env.REACT_APP_ADMIN,
+      USER: process.env.REACT_APP_USER,
+      ROOT: process.env.REACT_APP_ROOT
     }
     let tableOfArticles = (
       <table className="ui celled table">
@@ -160,7 +160,7 @@ class ControlPanel extends Component {
             <tr key={article._id}>
               <td>{article.email}</td>
               <td>{`${article.emailVerified}`}</td>
-              <td>{article.role ? (article.role===ROLE.ADMIN ? 'Administrator' : 'User' ): add}</td>
+              <td>{article.role ? (article.role===ROLE.ADMIN ? 'Administrator' : article.role===ROLE.USER ? 'User' : 'root' ): add}</td>
               <td className="positive selectable">{article.role!==ROLE.ROOT &&
                 <a onClick={() => this.handleAdminChange(article)}>
                   <i className="icon exchange"></i>

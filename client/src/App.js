@@ -11,12 +11,6 @@ import { userLogoutRequest } from './store/actions/usersActions';
 // import logo from "./../images/Logo4.png";
 import JSLogo from "./../images/svg-small.svg";
 
-var myHeaders = new Headers();
-// myHeaders.append("Access-Control-Allow-Origin", "*");
-// myHeaders.append("Access-Control-Allow-Credentials", "true");
-// myHeaders.append("Access-Control-Allow-Methods", "PUT, POST, DELETE, GET, OPTIONS");
-// myHeaders.append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-
 class App extends Component {
   state = {
     selectedFoods: [],

@@ -32,7 +32,7 @@ class App extends Component {
 
   componentDidMount() {
     document.title = "Vocab.js.org | Home";
-    fetch("https://ministry-of-vocabulary.herokuapp.com",requestOptions);
+    // fetch("https://ministry-of-vocabulary.herokuapp.com",requestOptions);
     if (localStorage.getItem("myValueInLocalStorage"))
       this.setState({
         selectedFoods: JSON.parse(

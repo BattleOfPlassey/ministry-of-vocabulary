@@ -217,7 +217,7 @@ class Home extends Component {
         <br />
         <div className="Header">
           <h1 className="heading">Dashboard</h1>
-          {this.props.isAuthRole.authenticatedRole === "ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzcxY2FlMjA0NTRjMDAxNWYzY2RhMSIsImVtYWlsIjoicGFsYXNoc2hhbnVAZ21haWwuY29tIiwiaWF0IjoxNjIyMjk4NjQzfQ.vKwYp8S43xan7wk1dkpY0Nn5uC6JGNPypcODIOF97F4" && (
+          {this.props.isAuthRole.authenticatedRole === process.env.REACT_APP_ROOT && (
             <Link to="/cp" className="Simple-Link">
               <i className="unlock alternate large icon"></i>
               <span className="item-label">Access Manage</span>

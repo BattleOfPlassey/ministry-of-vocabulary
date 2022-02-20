@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - gh-release
-  pull_request:
-    branches:
-      - gh-release
+
 
 jobs:
   build:
@@ -33,6 +31,10 @@ jobs:
     
     - name: Build project
       run: npm run build
+      env:
+        REACT_APP_ADMIN: ${{ secrets.REACT_APP_ADMIN }}
+        REACT_APP_USER: ${{ secrets.REACT_APP_USER }}
+        REACT_APP_ROOT: ${{ secrets.REACT_APP_ROOT }}
     
     
 

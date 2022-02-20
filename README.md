@@ -3,11 +3,6 @@ codename Ministry Of Vocabulary
 
 A MERN Stack app which helps you learn new words, improve your vocabulary and explore mnemonics. 
 
-## Use Case
-I developed this project during my time with GRE/TOEFL preparation. I came to an epiphany that we humans can recall something better if we attach a strong physical memory to that something in our lives.
-
-I applied the same principle and thought it would be helpful for students who find it hard to remember tough English words.
-
 ## Features
 - [x] NoSQL Database with around 40,000 records of words with meaning, mnemonics, usage and more. Used MongoDB Atlas to host the same.
 - [x] Simple CRUD operations

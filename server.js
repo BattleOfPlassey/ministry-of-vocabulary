@@ -1,22 +1,42 @@
 require('dotenv').config();
 const express = require("express");
-const fs = require("fs");
-const sqlite = require("sql.js");
-const dotenv = require('dotenv');
+// const fs = require("fs");
+// const sqlite = require("sql.js");
+// const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 // require('dotenv').config();
-
 const articles = require('./routes/articlesRoute.js');
 const rootRoute = require('./routes/rootRoute.js');
-
-
-const config = require('./config.js');
-
-
+// const config = require('./config.js');
 const MONGODB_URI = process.env.mongodburi;
+const winston = require('winston');
+const morgan = require('morgan');
 
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    //
+    // - Write all logs with level `error` and below to `error.log`
+    // - Write all logs with level `info` and below to `combined.log`
+    //
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' }),
+  ],
+});
+ 
+//
+// If we're not in production then log to the `console` with the format:
+// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
+//
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(new winston.transports.Console({
+    format: winston.format.simple(),
+  }));
+}
 
 mongoose.connect(MONGODB_URI, {
     useUnifiedTopology: true,
@@ -30,27 +50,21 @@ mongoose.connection.on('error', (error) => {
     console.log(error);
 });
 
-
-const filebuffer = fs.readFileSync("db/data.sqlite");
-
-const db = new sqlite.Database(filebuffer);
+// const filebuffer = fs.readFileSync("db/data.sqlite");
+// const db = new sqlite.Database(filebuffer);
 const users = require('./routes/usersRoute.js');
-
 const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
 app.set("port", process.env.PORT || 3001);
-// console.log(process.env.PORT);
+app.use(morgan("dev", { stream: logger.stream.write }));
+
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
-  
   app.use(express.static("client/build"));
 }
 
-
-
-const COLUMNS = [
+/*const COLUMNS = [
   "Word",
   "Meaning",
   "Mneomonic",
@@ -91,9 +105,7 @@ app.get("/api/word", (req, res) => {
   } else {
     res.json([]);
   }
-});
-
-
+}); */
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -105,11 +117,9 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use('/api/users', users);
 app.use('/api/articles', articles);
 app.use('/api/root', rootRoute);
-
 
 if (process.env.NODE_ENV === 'production') {
   // app.use(express.static(path.join(__dirname, 'build')));
@@ -122,5 +132,5 @@ if (process.env.NODE_ENV === 'production') {
   }
 
 app.listen(app.get("port"), () => {
-  console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console
+  console.log(`Find the server at port ${app.get("port")}`); // eslint-disable-line no-console
 });

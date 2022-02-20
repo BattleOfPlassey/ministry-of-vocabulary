@@ -17,13 +17,6 @@ var myHeaders = new Headers();
 // myHeaders.append("Access-Control-Allow-Methods", "PUT, POST, DELETE, GET, OPTIONS");
 // myHeaders.append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 
-
-var requestOptions = {
-  method: 'OPTIONS',
-  headers: myHeaders,
-  redirect: 'follow'
-};
-
 class App extends Component {
   state = {
     selectedFoods: [],
@@ -32,7 +25,6 @@ class App extends Component {
 
   componentDidMount() {
     document.title = "Vocab.js.org | Home";
-    // fetch("https://ministry-of-vocabulary.herokuapp.com",requestOptions);
     if (localStorage.getItem("myValueInLocalStorage"))
       this.setState({
         selectedFoods: JSON.parse(

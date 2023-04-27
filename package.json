@@ -20,11 +20,11 @@
     "winston": "^3.3.3"
   },
   "scripts": {
-    "start": "concurrently \"npm run dev\" \"npm run client\"",
-    "server": "node server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build",
+    "server": "concurrently \"npm run dev\" \"npm run client\"",
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && yarn && yarn build",
     "client": "node start-client.js",
-    "dev": "nodemon --ignore client/ server.js",
+    "dev": "nodemon --ignore client/ index.js",
     "lint": "eslint ."
   },
   "devDependencies": {
@@ -34,5 +34,8 @@
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.9.0"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }

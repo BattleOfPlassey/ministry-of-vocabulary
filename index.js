@@ -47,6 +47,7 @@ mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB');
 });
 mongoose.connection.on('error', (error) => {
+console.log("🚀 ~ file: server.js:52 ~ mongoose.connection.on ~ error:", error)
     console.log(error);
 });
 

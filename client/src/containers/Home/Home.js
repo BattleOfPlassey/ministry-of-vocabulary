@@ -68,7 +68,7 @@ class Home extends Component {
     ) {
       this.toggleShowMyArticles();
     }
-    document.title = "Dashboard | vocab.js.org";
+    document.title = "Dashboard | vocab.js";
   }
 
   componentDidMount() {
@@ -220,7 +220,7 @@ class Home extends Component {
           {this.props.isAuthRole.authenticatedRole === process.env.REACT_APP_ROOT && (
             <Link to="/cp" className="Simple-Link">
               <i className="unlock alternate large icon"></i>
-              <span className="item-label">Access Manage</span>
+              <span className="item-label">Manage Access</span>
             </Link>
           )}
           {this.props.isAuthenticated && (
@@ -241,7 +241,7 @@ class Home extends Component {
           )}
           <Link to="/article/add" className="Simple-Link">
             <i className="plus  large icon"></i>
-            <span className="item-label">Add Article</span>
+            <span className="item-label">Add Word</span>
           </Link>
           {/* {this.props.isAuthenticated && showArticlesLink} */}
 

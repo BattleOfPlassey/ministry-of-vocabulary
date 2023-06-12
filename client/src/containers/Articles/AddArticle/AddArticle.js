@@ -21,7 +21,7 @@ class AddArticle extends Component {
     };
 
     componentWillMount() {
-        document.title = "Add Article | Vocab.js.org";
+        document.title = "Add New Word";
         if (localStorage.getItem('AddArticlePage') !== null ) {
             const { article, errors } = JSON.parse(localStorage.getItem('AddArticlePage'));
             this.setState(prevState => {

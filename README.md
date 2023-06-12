@@ -1,4 +1,4 @@
-# [vocab.js.org](https://vocab.js.org)
+# [vocab.js](https://vocab.js.org)
 codename Ministry Of Vocabulary
 
 A MERN Stack app which helps you learn new words, improve your vocabulary and explore mnemonics. 
@@ -12,7 +12,7 @@ A MERN Stack app which helps you learn new words, improve your vocabulary and ex
 - [x] User Authentication with JWT.
 - [x] Improved and Secure API calls. 
 - [x] Deboucing API calls during typing, thus unnecessary backend calls are significatly reduced.
-- [x] Production deployment(API + Front End) through `main` branch. CI/CD pipeline setup in Heroku.
+- [x] Production deployment(API + Front End) through `main` branch.
 - [x] Front End only deployment on `gh-release` branch through GitHub Actions to build and deploy on `gh-pages`.
 - [ ] Adding more words, meaning and mneomonics.
 - [ ] Improvment in UI 💅

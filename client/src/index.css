@@ -75,7 +75,9 @@ tr {
   margin-right: auto;
   margin-bottom: 2em;
   margin-top: 10px;
-  width: 15%;
+  width: 50%;
+height: 100px;
+  object-fit: cover;
  
 }
   @media (max-width: 1170px) {
@@ -116,7 +118,7 @@ tr {
  }
       .image {
         
-        width: 19%;
+        /* width: 19%; */
       }}
 
  /*      .text-gradient{

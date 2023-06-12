@@ -8,7 +8,7 @@ import FoodSearch from "./FoodSearch";
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userLogoutRequest } from './store/actions/usersActions';
-// import logo from "./../images/Logo4.png";
+import logo from "./../images/LOGO5.png";
 import JSLogo from "./../images/svg-small.svg";
 
 class App extends Component {
@@ -18,7 +18,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    document.title = "Vocab.js.org | Home";
+    document.title = "vocab.js - learn tough words & mnemonics";
     if (localStorage.getItem("myValueInLocalStorage"))
       this.setState({
         selectedFoods: JSON.parse(
@@ -85,9 +85,9 @@ class App extends Component {
         </div>
 
         <div className="ui text container">
-          {/* <img className="image" src={logo} alt="Vocab logo" /> */}
-          <h1 className="text-gradient">VOCAB.</h1>
-          <img className="image" src={JSLogo} alt="JS.org Logo" />
+          <img className="image" src={logo} alt="Vocab logo" />
+          {/* <h1 className="text-gradient">VOCAB.<span style={{  backgroundColor:''}}>JS</span></h1>
+          <img className="image" src={JSLogo} alt="JS.org Logo" /> */}
           
         </div>
 
@@ -104,7 +104,7 @@ class App extends Component {
         </div>
           <footer className="footercustom">
               <div>
-              vocab.js.org helps you learn new words, improve your vocabulary and explore mnemonics.
+              vocab.js helps you learn tough new words using mnemonics and improve your vocabulary.
               </div>
                <br></br>
                <div>

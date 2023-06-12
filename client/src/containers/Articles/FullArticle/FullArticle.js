@@ -74,7 +74,7 @@ class FullArticle extends Component {
   }
 
   render() {
-    document.title = this.props.article.Word + " | Vocab.js.org";
+    document.title = this.props.article.Word + " | vocab.js";
     return (
       <div className="container">
         <br />
@@ -100,7 +100,7 @@ class FullArticle extends Component {
           )}
           <Link to="/article/add" className="Simple-Link">
             <i className="plus  large icon"></i>
-            <span className="item-label">Add Article</span>
+            <span className="item-label">Add Word</span>
           </Link>
           {/* {this.props.isAuthenticated && showArticlesLink} */}
 

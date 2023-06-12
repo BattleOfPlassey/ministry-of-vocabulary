@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userLogoutRequest } from './store/actions/usersActions';
 import logo from "./../images/LOGO5.png";
-import JSLogo from "./../images/svg-small.svg";
+// import JSLogo from "./../images/svg-small.svg";
 
 class App extends Component {
   state = {
